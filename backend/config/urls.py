@@ -21,6 +21,9 @@ urlpatterns = [
     path(API_V1, include("apps.core.urls")),
     path(f"{API_V1}auth/", include("apps.accounts.urls")),
     path(API_V1, include("apps.catalog.urls")),
+    path(API_V1, include("apps.mediafiles.urls")),
+    path(API_V1, include("apps.products.urls")),
+    path(API_V1, include("apps.moderation.urls")),
 ]
 
 # API hujjatlari

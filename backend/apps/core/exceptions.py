@@ -120,6 +120,15 @@ def api_exception_handler(exc, context):
         response.status_code, "Xatolik yuz berdi."
     )
 
+    # BusinessError maydon darajasidagi xatolarni `details` da olib
+    # keladi — ularsiz foydalanuvchi qaysi maydon xato ekanini bilmaydi.
+    business_details = getattr(exc, "details", None)
+    if business_details:
+        details = dict(business_details)
+        first = _first_message(details)
+        if first:
+            message = f"{message} {first}" if message else first
+
     # SimpleJWT xabarni argument sifatida uzatadi, shuning uchun uning
     # default_detail'ini almashtirish yetarli emas.
     if isinstance(details, dict) and details.get("code") == "token_not_valid":

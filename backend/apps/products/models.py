@@ -7,7 +7,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils import timezone
 
-from apps.core.models import BaseModel
+from apps.core.models import AuditableModel, BaseModel
 from apps.core.utils import make_unique_slug
 
 
@@ -83,7 +83,14 @@ class ProductManager(models.Manager.from_queryset(ProductQuerySet)):
         return super().get_queryset().filter(is_deleted=False)
 
 
-class Product(BaseModel):
+class Product(BaseModel, AuditableModel):
+    """E'lon.
+
+    `seller` — kimga tegishli; `created_by`/`updated_by` — kim
+    kiritgan/oxirgi tahrirlagan. Odatda ikkalasi bir xil, lekin admin
+    sotuvchi nomidan tahrirlaganda farq qiladi va shu farq muhim.
+    """
+
     # --- Asosiy ---
     title = models.CharField("sarlavha", max_length=200)
     slug = models.SlugField("slug", max_length=255, unique=True, db_index=True)

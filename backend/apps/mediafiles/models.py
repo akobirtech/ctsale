@@ -11,6 +11,12 @@ from apps.core.models import TimeStampedModel
 from apps.core.utils import build_media_path
 
 
+# Yo'l "products/<uuid-36>/images/<nom>" ko'rinishida bo'lgani uchun
+# standart max_length=100 yetmaydi va Django nomni kesib tashlaydi —
+# bu SEO uchun tanlangan mazmunli fayl nomini buzadi.
+MEDIA_PATH_MAX_LENGTH = 255
+
+
 def _product_slug(instance):
     """Fayl nomi uchun mahsulot slug'i — rasm SEO talabi (#17).
 
@@ -46,12 +52,12 @@ class ProductImage(TimeStampedModel):
     product = models.ForeignKey(
         "products.Product", verbose_name="mahsulot", on_delete=models.CASCADE, related_name="images"
     )
-    image = models.ImageField("rasm", upload_to=product_image_path)
+    image = models.ImageField("rasm", upload_to=product_image_path, max_length=MEDIA_PATH_MAX_LENGTH)
 
     # Optimallashtirilgan variantlar (Celery yaratadi)
-    thumb = models.ImageField("kichik (300px)", upload_to=product_image_path, blank=True)
-    medium = models.ImageField("o'rta (800px)", upload_to=product_image_path, blank=True)
-    large = models.ImageField("katta (1600px)", upload_to=product_image_path, blank=True)
+    thumb = models.ImageField("kichik (300px)", upload_to=product_image_path, max_length=MEDIA_PATH_MAX_LENGTH, blank=True)
+    medium = models.ImageField("o'rta (800px)", upload_to=product_image_path, max_length=MEDIA_PATH_MAX_LENGTH, blank=True)
+    large = models.ImageField("katta (1600px)", upload_to=product_image_path, max_length=MEDIA_PATH_MAX_LENGTH, blank=True)
 
     alt_text = models.CharField("alt matn", max_length=200, blank=True)
     is_primary = models.BooleanField("asosiy rasm", default=False)
@@ -96,8 +102,8 @@ class ProductVideo(TimeStampedModel):
     product = models.ForeignKey(
         "products.Product", verbose_name="mahsulot", on_delete=models.CASCADE, related_name="videos"
     )
-    video = models.FileField("video", upload_to=product_video_path)
-    poster = models.ImageField("poster", upload_to=product_poster_path, blank=True)
+    video = models.FileField("video", upload_to=product_video_path, max_length=MEDIA_PATH_MAX_LENGTH)
+    poster = models.ImageField("poster", upload_to=product_poster_path, max_length=MEDIA_PATH_MAX_LENGTH, blank=True)
 
     title = models.CharField("sarlavha", max_length=150, blank=True)
     order = models.PositiveSmallIntegerField("tartib", default=0)

@@ -3,7 +3,7 @@
 > Doimiy progress tracker. Bajarilgan task hech qachon o'chirilmaydi, faqat `[x]` qilinadi.
 > Oxirgi yangilanish: 2026-09-20
 
-**Progress:** Phase 6 / 30 (auth, RBAC, katalog tayyor)
+**Progress:** Phase 13 / 30 (backend yadrosi tayyor: mahsulot, media, moderatsiya, Telegram)
 
 ---
 
@@ -141,76 +141,76 @@ cloaking deb baholashi mumkin.
 - [x] Kategoriya bo'yicha atribut merosi
 - [x] Catalog admin API (CRUD)
 - [x] Catalog public API
-- [ ] Catalog testlari
+- [x] Catalog testlari
 
 ---
 
 ## Phase 6 — Product system
 
-- [ ] Product modeli (barcha maydonlar)
-- [ ] Ishlatilgan mahsulot maydonlari
-- [ ] Status choices + transition validatsiyasi
-- [ ] specs JSONB + GIN index
-- [ ] Slug avtomatik generatsiya (unique)
-- [ ] Spec validatsiyasi (AttributeDefinition ga qarab)
-- [ ] Product CRUD API (seller)
-- [ ] Product public API (list/detail)
-- [ ] Submit / Sold / Reserve / Archive / Renew action'lari
-- [ ] E'lon muddati (expires_at) va Celery expiry task
+- [x] Product modeli (barcha maydonlar)
+- [x] Ishlatilgan mahsulot maydonlari
+- [x] Status choices + transition validatsiyasi
+- [x] specs JSONB + GIN index
+- [x] Slug avtomatik generatsiya (unique)
+- [x] Spec validatsiyasi (AttributeDefinition ga qarab)
+- [x] Product CRUD API (seller)
+- [x] Product public API (list/detail)
+- [x] Submit / Sold / Reserve / Archive / Renew action'lari
+- [x] E'lon muddati (expires_at) va Celery expiry task
 - [ ] Product testlari
 
 ---
 
 ## Phase 7 — Media system
 
-- [ ] ProductImage modeli
-- [ ] ProductVideo modeli
-- [ ] MIME / magic-bytes validatsiya
-- [ ] Hajm va son limitlari
-- [ ] Upload API (multipart)
-- [ ] Celery: rasm optimizatsiya (WebP + 3 o'lcham)
-- [ ] EXIF tozalash
-- [ ] is_primary va order boshqaruvi
-- [ ] Video validatsiya + poster
-- [ ] Media o'chirish (fayl bilan)
-- [ ] Aniq xato xabarlari (o'zbekcha)
+- [x] ProductImage modeli
+- [x] ProductVideo modeli
+- [x] MIME / magic-bytes validatsiya
+- [x] Hajm va son limitlari
+- [x] Upload API (multipart)
+- [x] Celery: rasm optimizatsiya (WebP + 3 o'lcham)
+- [x] EXIF tozalash
+- [x] is_primary va order boshqaruvi
+- [x] Video validatsiya + poster
+- [x] Media o'chirish (fayl bilan)
+- [x] Aniq xato xabarlari (o'zbekcha)
 - [ ] Media testlari
 
 ---
 
 ## Phase 8 — Search
 
-- [ ] search_vector maydoni + GIN index
-- [ ] Vektorni yangilash (signal/save)
-- [ ] Full-text search endpoint
-- [ ] Trigram fallback (opechatka)
-- [ ] Autocomplete endpoint
-- [ ] Qidiruv tarixi (SearchQuery log)
+- [x] search_vector maydoni + GIN index
+- [x] Vektorni yangilash (signal/save)
+- [x] Full-text search endpoint
+- [x] Trigram fallback (opechatka)
+- [x] Autocomplete endpoint
+- [x] Qidiruv tarixi (SearchQuery log)
 - [ ] Search testlari
 
 ---
 
 ## Phase 9 — Filters & sorting
 
-- [ ] ProductFilterSet (django-filter)
-- [ ] Narx oralig'i / holat / brend / manzil filtrlari
-- [ ] Dinamik spec filtrlari (JSONB)
-- [ ] Facet count endpoint
-- [ ] 6 xil sorting
-- [ ] Pagination
+- [x] ProductFilterSet (django-filter)
+- [x] Narx oralig'i / holat / brend / manzil filtrlari
+- [x] Dinamik spec filtrlari (JSONB)
+- [x] Facet count endpoint
+- [x] 6 xil sorting
+- [x] Pagination
 - [ ] Filter testlari
 
 ---
 
 ## Phase 10 — Moderation
 
-- [ ] ModerationTask modeli
-- [ ] Reject sabablari ro'yxati
-- [ ] Moderatsiya navbati API
-- [ ] Approve action
-- [ ] Reject action (sabab + izoh)
-- [ ] Bulk approve
-- [ ] Muhim maydon o'zgarganda qayta moderatsiya
+- [x] ModerationTask modeli
+- [x] Reject sabablari ro'yxati
+- [x] Moderatsiya navbati API
+- [x] Approve action
+- [x] Reject action (sabab + izoh)
+- [x] Bulk approve
+- [x] Muhim maydon o'zgarganda qayta moderatsiya
 - [ ] Moderation testlari
 
 ---
@@ -228,11 +228,11 @@ cloaking deb baholashi mumkin.
 
 ## Phase 12 — Notifications
 
-- [ ] Notification modeli
-- [ ] NotificationType enum va shablonlar
+- [x] Notification modeli
+- [x] NotificationType enum va shablonlar
 - [ ] In-app API (list / unread count / mark read)
-- [ ] Telegram kanali orqali yuborish
-- [ ] Email backend (dev: konsol)
+- [x] Telegram kanali orqali yuborish
+- [x] Email backend (dev: konsol)
 - [ ] User notification sozlamalari
 - [ ] Testlar
 
@@ -240,16 +240,16 @@ cloaking deb baholashi mumkin.
 
 ## Phase 13 — Telegram
 
-- [ ] TelegramSettings modeli (admin boshqaradi)
-- [ ] TelegramPost modeli (pending/published/failed)
-- [ ] Bot API client (requests)
-- [ ] Post shablon renderer
-- [ ] sendPhoto / sendMediaGroup / sendVideo
-- [ ] Inline tugma "Saytda ko'rish"
-- [ ] APPROVED signal -> Celery publish task
-- [ ] Retry + xato saqlash
-- [ ] SOLD -> post tahrirlash
-- [ ] Mock rejim (token yo'q bo'lsa)
+- [x] TelegramSettings modeli (admin boshqaradi)
+- [x] TelegramPost modeli (pending/published/failed)
+- [x] Bot API client (requests)
+- [x] Post shablon renderer
+- [x] sendPhoto / sendMediaGroup / sendVideo
+- [x] Inline tugma "Saytda ko'rish"
+- [x] APPROVED signal -> Celery publish task
+- [x] Retry + xato saqlash
+- [x] SOLD -> post tahrirlash
+- [x] Mock rejim (token yo'q bo'lsa)
 - [ ] Bot handlerlari (/start, qidiruv, mening e'lonlarim)
 - [ ] Admin panelda qayta jo'natish
 - [ ] TELEGRAM.md hujjati
@@ -259,10 +259,10 @@ cloaking deb baholashi mumkin.
 
 ## Phase 14 — Analytics & audit
 
-- [ ] ProductView modeli (unique 24h)
-- [ ] PhoneReveal hisoblagichi
-- [ ] AuditLog modeli
-- [ ] Audit signal/mixin
+- [x] ProductView modeli (unique 24h)
+- [x] PhoneReveal hisoblagichi
+- [x] AuditLog modeli
+- [x] Audit signal/mixin
 - [ ] Dashboard statistika endpointi
 - [ ] Testlar
 
@@ -323,7 +323,7 @@ cloaking deb baholashi mumkin.
 - [ ] VideoPlayer
 - [ ] FilterSidebar
 - [ ] FilterDrawer (mobil)
-- [ ] Pagination
+- [x] Pagination
 - [ ] Price
 - [ ] Badge
 - [ ] Modal
@@ -355,7 +355,7 @@ cloaking deb baholashi mumkin.
 - [ ] Katalog layout
 - [ ] URL-sinxron filtrlar
 - [ ] Sorting
-- [ ] Pagination
+- [x] Pagination
 - [ ] Skeleton loading
 - [ ] Empty state
 - [ ] Mobil filter drawer
