@@ -120,10 +120,20 @@ def api_exception_handler(exc, context):
         response.status_code, "Xatolik yuz berdi."
     )
 
+    # SimpleJWT xabarni argument sifatida uzatadi, shuning uchun uning
+    # default_detail'ini almashtirish yetarli emas.
+    if isinstance(details, dict) and details.get("code") == "token_not_valid":
+        code = "token_not_valid"
+        message = "Sessiya muddati tugagan. Qaytadan kiring."
+        details = {"detail": message}
+
     # Throttle uchun qancha kutish kerakligini aniq aytamiz.
     wait = getattr(exc, "wait", None)
     if wait:
         message = f"Juda ko'p so'rov yuborildi. {int(wait)} soniyadan keyin urinib ko'ring."
+        # DRF o'z matnini ("Expected available in N seconds") qo'shadi —
+        # uni almashtiramiz, aks holda javobda ikki til aralashadi.
+        details = {"detail": message, "retry_after": int(wait)}
 
     response.data = {"error": {"code": code, "message": message, "details": details}}
     return response

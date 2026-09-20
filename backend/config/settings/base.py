@@ -129,13 +129,14 @@ PASSWORD_HASHERS = [
 ]
 
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "apps.accounts.validators.UzUserAttributeSimilarityValidator"},
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME": "apps.accounts.validators.UzMinimumLengthValidator",
         "OPTIONS": {"min_length": 8},
     },
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+    {"NAME": "apps.accounts.validators.UzCommonPasswordValidator"},
+    {"NAME": "apps.accounts.validators.UzNumericPasswordValidator"},
+    {"NAME": "apps.accounts.validators.UzComplexityValidator"},
 ]
 
 # --------------------------------------------------------------------------
@@ -216,7 +217,6 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
-    "TOKEN_OBTAIN_SERIALIZER": "apps.accounts.serializers.LoginSerializer",
 }
 
 # Refresh token httpOnly cookie'da saqlanadi (XSS himoyasi)

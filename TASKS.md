@@ -3,7 +3,7 @@
 > Doimiy progress tracker. Bajarilgan task hech qachon o'chirilmaydi, faqat `[x]` qilinadi.
 > Oxirgi yangilanish: 2026-09-20
 
-**Progress:** Phase 3 / 30 (backend poydevori tayyor, auth boshlandi)
+**Progress:** Phase 5 / 30 (auth + RBAC ishlaydi, katalog boshlandi)
 
 ---
 
@@ -79,7 +79,7 @@ cloaking deb baholashi mumkin.
 - [x] Logging sozlandi
 - [x] `manage.py check` xatosiz o'tdi
 - [x] `runserver` ishga tushdi va tekshirildi
-- [ ] git init + birinchi commit
+- [x] git init + birinchi commit
 
 ---
 
@@ -97,32 +97,34 @@ cloaking deb baholashi mumkin.
 
 ## Phase 3 — Authentication (JWT)
 
-- [ ] Custom User modeli (phone USERNAME_FIELD)
-- [ ] UserProfile / Shop profili
-- [ ] OTP modeli va generatsiya
-- [ ] OTP yuborish servisi (dev: konsol + Telegram)
-- [ ] Register endpoint
-- [ ] OTP verify endpoint
-- [ ] Login endpoint (JWT)
-- [ ] Refresh endpoint (httpOnly cookie + rotation)
-- [ ] Logout endpoint (blacklist)
-- [ ] `/me` endpoint
-- [ ] Parolni tiklash oqimi
-- [ ] Parol validatsiyasi va hashing
-- [ ] Auth throttling (login 5/min, register 3/soat)
+- [x] Custom User modeli (phone USERNAME_FIELD)
+- [x] UserProfile / Shop profili
+- [x] OTP modeli va generatsiya
+- [x] OTP yuborish servisi (dev: konsol + Telegram)
+- [x] Register endpoint
+- [x] OTP verify endpoint
+- [x] Login endpoint (JWT)
+- [x] Refresh endpoint (httpOnly cookie + rotation)
+- [x] Logout endpoint (blacklist)
+- [x] `/me` endpoint
+- [x] Parolni tiklash oqimi
+- [x] Parol validatsiyasi va hashing
+- [x] Auth throttling (login 5/min, register 3/soat)
+- [x] Brute-force himoyasi (LoginAttempt, 10 urinish / 15 daqiqa)
+- [x] Barcha xato xabarlari o'zbekchaga o'girildi (DRF + parol validatorlari)
 - [ ] Auth testlari (pytest)
 
 ---
 
 ## Phase 4 — RBAC roles & permissions
 
-- [ ] Permission modeli (kod asosida)
-- [ ] Role modeli
-- [ ] Role-Permission bog'lanishi
-- [ ] User-Role bog'lanishi
-- [ ] `HasPermission` DRF permission class
-- [ ] `IsOwnerOrReadOnly` object permission
-- [ ] Default rollar seed (SUPERADMIN/ADMIN/MODERATOR/SUPPORT/USER)
+- [x] Permission modeli (kod asosida)
+- [x] Role modeli
+- [x] Role-Permission bog'lanishi
+- [x] User-Role bog'lanishi
+- [x] `HasPermission` DRF permission class
+- [x] `IsOwnerOrReadOnly` object permission
+- [x] Default rollar seed (SUPERADMIN/ADMIN/MODERATOR/SUPPORT/USER)
 - [ ] Permission matritsasi testlari
 
 ---
