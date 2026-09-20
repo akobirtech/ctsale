@@ -20,6 +20,7 @@ urlpatterns = [
     path("django-admin/", admin.site.urls),
     path(API_V1, include("apps.core.urls")),
     path(f"{API_V1}auth/", include("apps.accounts.urls")),
+    path(API_V1, include("apps.catalog.urls")),
 ]
 
 # API hujjatlari

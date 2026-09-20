@@ -3,7 +3,7 @@
 > Doimiy progress tracker. Bajarilgan task hech qachon o'chirilmaydi, faqat `[x]` qilinadi.
 > Oxirgi yangilanish: 2026-09-20
 
-**Progress:** Phase 5 / 30 (auth + RBAC ishlaydi, katalog boshlandi)
+**Progress:** Phase 6 / 30 (auth, RBAC, katalog tayyor)
 
 ---
 
@@ -125,20 +125,22 @@ cloaking deb baholashi mumkin.
 - [x] `HasPermission` DRF permission class
 - [x] `IsOwnerOrReadOnly` object permission
 - [x] Default rollar seed (SUPERADMIN/ADMIN/MODERATOR/SUPPORT/USER)
-- [ ] Permission matritsasi testlari
+- [x] `manage.py create_admin` komandasi
+- [x] RBAC real HTTP orqali tekshirildi (403 -> rol berilgach 201)
+- [x] Permission matritsasi testlari
 
 ---
 
 ## Phase 5 — Catalog
 
-- [ ] Category modeli (self-FK tree, slug, icon, order)
-- [ ] Category tree API
-- [ ] Brand modeli (logo, slug)
-- [ ] AttributeDefinition modeli (type, unit, filterable, required)
-- [ ] AttributeOption modeli (select/multiselect uchun)
-- [ ] Kategoriya bo'yicha atribut merosi
-- [ ] Catalog admin API (CRUD)
-- [ ] Catalog public API
+- [x] Category modeli (self-FK tree, slug, icon, order)
+- [x] Category tree API
+- [x] Brand modeli (logo, slug)
+- [x] AttributeDefinition modeli (type, unit, filterable, required)
+- [x] AttributeOption modeli (select/multiselect uchun)
+- [x] Kategoriya bo'yicha atribut merosi
+- [x] Catalog admin API (CRUD)
+- [x] Catalog public API
 - [ ] Catalog testlari
 
 ---
@@ -282,9 +284,10 @@ cloaking deb baholashi mumkin.
 
 ## Phase 16 — Mock data
 
-- [ ] Kategoriya daraxti seed (25+)
-- [ ] Brendlar seed (30+)
-- [ ] Atributlar seed (kategoriyalar bo'yicha)
+- [x] Kategoriya daraxti seed (25+)
+- [x] Brendlar seed (30+)
+- [x] Atributlar seed (kategoriyalar bo'yicha)
+- [x] O'zbekiston hududlari seed (14 viloyat / 79 tuman)
 - [ ] Userlar seed (40)
 - [ ] Sotuvchilar seed (20)
 - [ ] ~120 mahsulot seed
