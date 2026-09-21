@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 from apps.accounts.models import User
 from apps.analytics.models import AuditLog
+from apps.products.models import Product
 from apps.telegrambot.models import TelegramPost, TelegramSettings
 
 
@@ -103,3 +104,49 @@ class TelegramSettingsSerializer(serializers.ModelSerializer):
                 "Shablonda formatlash xatosi bor. Jingalak qavslarni tekshiring."
             ) from exc
         return value
+
+
+class AdminProductSerializer(serializers.ModelSerializer):
+    """Admin jadvali uchun qisqa ko'rinish.
+
+    Ommaviy serializer'dan farqi: qoralama va rad etilgan e'lonlar ham
+    ko'rinadi, sotuvchi va moderatsiya holati esa bitta qatorda turadi.
+    """
+
+    seller_phone = serializers.CharField(source="seller.phone", read_only=True)
+    seller_name = serializers.CharField(source="seller.get_full_name", read_only=True)
+    category_name = serializers.CharField(source="category.name_uz", read_only=True)
+    cover = serializers.SerializerMethodField()
+    telegram_status = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = [
+            "id",
+            "slug",
+            "title",
+            "status",
+            "price",
+            "currency",
+            "condition",
+            "is_featured",
+            "featured_until",
+            "views_count",
+            "seller_phone",
+            "seller_name",
+            "category_name",
+            "cover",
+            "telegram_status",
+            "created_at",
+            "published_at",
+        ]
+        read_only_fields = fields
+
+    def get_cover(self, product):
+        images = list(product.images.all())
+        image = next((i for i in images if i.is_primary), None) or next(iter(images), None)
+        return image.thumb_url if image else None
+
+    def get_telegram_status(self, product):
+        post = next(iter(product.telegram_posts.all()), None)
+        return post.status if post else None

@@ -273,7 +273,7 @@ cloaking deb baholashi mumkin.
 ## Phase 15 — Admin API
 
 - [x] Admin users endpoint
-- [ ] Admin products endpoint
+- [x] Admin products endpoint
 - [x] Admin moderation endpoint
 - [x] Admin reports endpoint
 - [x] Admin telegram endpoint

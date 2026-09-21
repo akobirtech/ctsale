@@ -15,7 +15,7 @@ venv/Scripts/python -m pytest -x --lf         # birinchi xatoda to'xta, oxirgi y
 
 Linux/macOS'da `venv/bin/python`.
 
-**Hozirgi holat: 359 test, 87% qamrov, ~19 soniya.**
+**Hozirgi holat: 390 test, 87% qamrov, ~16 soniya.**
 
 ---
 
@@ -69,8 +69,9 @@ backend/tests/
 ├── test_interactions_seo.py          38  sevimli, shikoyat, JSON-LD, sitemap
 ├── test_admin_api.py                 29  statistika, ban, audit, Telegram admin
 ├── test_notifications_seo_services.py 25 kanallar, hreflang, schema
-├── test_performance.py                24  so'rovlar soni, kesh izolyatsiyasi
-└── test_seo_redirects.py              15  301/302/410, eski slug, resolve
+├── test_performance.py                25  so'rovlar soni, kesh izolyatsiyasi
+├── test_seo_redirects.py              15  301/302/410, eski slug, resolve
+└── test_admin_products.py             31  filtr, VIP, arxiv, ommaviy amallar
 ```
 
 ### So'rovlar sonini o'lchash

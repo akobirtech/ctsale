@@ -19,7 +19,7 @@
 | **Telegram** | Tasdiqlangan e'lon kanalga avtomatik chiqadi, sotilganda post yangilanadi |
 | **SEO** | SSR, 3 til, hreflang, JSON-LD, dinamik sitemap va robots.txt |
 
-**Hajmi:** 87 API endpoint · 33 model · 239 indeks · 359 test (87% qamrov)
+**Hajmi:** 79 API yo'li (108 operatsiya) · 33 model · 239 indeks · 390 test (87% qamrov)
 
 ---
 
@@ -126,7 +126,7 @@ To'liq ro'yxat va sukut qiymatlari: `.env.example` va `config/settings/base.py`.
 
 ```bash
 cd backend
-venv/Scripts/python -m pytest              # 359 test, ~19 s
+venv/Scripts/python -m pytest              # 390 test, ~19 s
 venv/Scripts/python -m pytest --cov        # qamrov hisoboti
 
 cd ../frontend
@@ -157,7 +157,7 @@ Batafsil: [TESTING.md](TESTING.md)
 │   │   ├── analytics/     audit jurnali, kunlik statistika
 │   │   ├── seo/           sitemap, robots, JSON-LD, redirectlar
 │   │   └── adminapi/      admin panel uchun jamlanmalar
-│   └── tests/             359 test
+│   └── tests/             390 test
 ├── frontend/
 │   ├── server.js          SSR server (Express + Vite)
 │   └── src/

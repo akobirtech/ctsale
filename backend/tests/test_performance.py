@@ -315,3 +315,26 @@ class TestFeaturedCache:
         assert too_big.status_code == 200
         assert invalid.status_code == 200
         assert len(too_big.data["newest"]) <= 24
+
+
+class TestAdminProductTable:
+    """Admin jadvali ham N+1 ga moyil: har qatorda sotuvchi, kategoriya,
+    rasm va Telegram holati bor."""
+
+    def test_query_count_does_not_grow_with_rows(
+        self, auth_client, admin, many_products
+    ):
+        client = auth_client(admin)
+
+        def count_for(limit):
+            with CaptureQueriesContext(connection) as ctx:
+                response = client.get(f"/api/v1/admin/products/?page_size={limit}")
+            assert response.status_code == 200
+            return len(ctx)
+
+        few = count_for(3)
+        many = count_for(20)
+
+        # Prefetch bir nechta qo'shimcha so'rov qiladi, lekin ular qator
+        # soniga bog'liq emas.
+        assert many <= few + 1

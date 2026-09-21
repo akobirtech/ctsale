@@ -487,6 +487,13 @@ tashqi kanal uzilsa ham xabar saytda ko'rinadi.
 | POST | `users/{id}/unban/` | `user.ban` |
 | POST | `users/{id}/verify-seller/` | `user.verify_seller` |
 | POST | `users/{id}/roles/` | `user.change_role` |
+| GET | `products/` | `product.view_any` |
+| GET | `products/{id}/` | `product.view_any` |
+| POST | `products/{id}/feature/` | `product.feature` |
+| POST | `products/{id}/force-status/` | `product.force_status` |
+| POST | `products/{id}/restore/` | `product.delete_any` |
+| DELETE | `products/{id}/` | `product.delete_any` |
+| POST | `products/bulk/` | amalga qarab |
 | GET | `audit/` | `audit.view` |
 | GET | `telegram/` | `telegram.manage` |
 | GET PATCH | `telegram/settings/` | `telegram.manage` |
@@ -495,6 +502,32 @@ tashqi kanal uzilsa ham xabar saytda ko'rinadi.
 Bloklashda sabab majburiy. Superuser'ni va o'zini bloklash mumkin emas.
 Telegram sozlamalari javobida **bot tokeni hech qachon bo'lmaydi** —
 faqat `is_configured` bayrog'i.
+
+### E'lonlar jadvali
+
+Ommaviy `/products/` dan farqi: qoralama, rad etilgan va o'chirilgan
+e'lonlar ham ko'rinadi. Filtrlar: `status` (vergul bilan bir nechta),
+`search` (sarlavha / slug / sotuvchi raqami), `category`, `seller`,
+`featured=true`, `deleted=true`. Javobga `status_counts` qo'shiladi —
+jadval ustidagi hisoblagichlar uchun.
+
+Tasdiqlash va rad etish bu yerda **yo'q**: ular `/moderation/` da,
+chunki u yerda navbat, tarix va bildirishnoma mantiqi bor.
+
+```http
+POST /api/v1/admin/products/bulk/
+{ "action": "archive", "ids": ["..."] }
+```
+
+| `action` | Kerakli ruxsat |
+|---|---|
+| `feature` / `unfeature` | `product.feature` |
+| `archive` | `product.edit_any` |
+| `delete` | `product.delete_any` |
+
+Bir so'rovda ko'pi bilan 100 ta e'lon. Ro'yxatni ko'rish huquqi
+ommaviy amalga ruxsat bermaydi — har bir amal o'z kodini talab qiladi.
+O'chirish har doim yumshoq (`is_deleted`), `restore/` qaytaradi.
 
 ---
 
