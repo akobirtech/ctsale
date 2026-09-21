@@ -3,7 +3,7 @@
 > Doimiy progress tracker. Bajarilgan task hech qachon o'chirilmaydi, faqat `[x]` qilinadi.
 > Oxirgi yangilanish: 2026-09-20
 
-**Progress:** Phase 16 / 30 (backend to'liq + demo data + SEO fayllari; keyingisi frontend)
+**Progress:** Phase 21 / 30 (SSR frontend ishlayapti: bosh sahifa, katalog, mahsulot sahifasi)
 
 ---
 
@@ -39,14 +39,14 @@ ta'sir qilganlari migration qilishdan OLDIN kiritildi.
 - [x] Til prefiksli URL arxitekturasi qaroriga ko'chirildi (`/uz/product/{slug}`)
 - [x] `schema_availability` / `schema_condition` (JSON-LD uchun)
 - [x] Google/Yandex/Bing verification kodlari `.env` ga ko'chirildi
-- [ ] Vite SSR (React renderToString + Express) — Phase 17 da
+- [x] Vite SSR (React renderToString + Express) — Phase 17 da
 - [x] Dinamik robots.txt (baza asosida)
 - [x] Dinamik multilingual sitemap (/sitemap.xml, /sitemap-{uz,ru,en}.xml)
-- [ ] hreflang + x-default barcha public sahifalarda
-- [ ] JSON-LD: Product, Offer, BreadcrumbList, Organization, WebSite, SearchAction
+- [x] hreflang + x-default barcha public sahifalarda
+- [x] JSON-LD: Product, Offer, BreadcrumbList, Organization, WebSite, SearchAction
 - [ ] 301 redirect middleware (SeoRedirect modeli asosida)
 - [ ] 410 Gone — o'chirilgan mahsulot uchun
-- [ ] Multilingual 404 sahifasi
+- [x] Multilingual 404 sahifasi
 - [x] Sotilgan mahsulot uchun SEO strategiyasi (200 + SoldOut)
 
 **Qabul qilingan arxitektura qarori:** React + Vite saqlanadi, lekin
@@ -302,83 +302,83 @@ cloaking deb baholashi mumkin.
 
 ## Phase 17 — Frontend foundation
 
-- [ ] Vite + React scaffold
-- [ ] Tailwind sozlandi
-- [ ] Design tokenlar (rang, typography, spacing, radius, shadow)
-- [ ] Dark mode
-- [ ] Router
-- [ ] API client + interceptor
-- [ ] Auth store
-- [ ] TanStack Query
-- [ ] i18n (uz/ru/en)
-- [ ] `npm run build` toza
+- [x] Vite + React scaffold
+- [x] Tailwind sozlandi
+- [x] Design tokenlar (rang, typography, spacing, radius, shadow)
+- [x] Dark mode
+- [x] Router
+- [x] API client + interceptor
+- [x] Auth store
+- [x] TanStack Query
+- [x] i18n (uz/ru/en)
+- [x] `npm run build` toza
 
 ---
 
 ## Phase 18 — Frontend components
 
-- [ ] Navbar
-- [ ] SearchBar (debounce + autocomplete)
+- [x] Navbar
+- [x] SearchBar (debounce + autocomplete)
 - [ ] CategoryMenu (mega menu)
-- [ ] ProductCard
-- [ ] ProductGrid
-- [ ] ProductGallery + Lightbox
-- [ ] VideoPlayer
-- [ ] FilterSidebar
-- [ ] FilterDrawer (mobil)
+- [x] ProductCard
+- [x] ProductGrid
+- [x] ProductGallery + Lightbox
+- [x] VideoPlayer
+- [x] FilterSidebar
+- [x] FilterDrawer (mobil)
 - [x] Pagination
-- [ ] Price
-- [ ] Badge
+- [x] Price
+- [x] Badge
 - [ ] Modal
-- [ ] Toast
-- [ ] LoadingSkeleton
-- [ ] EmptyState
-- [ ] ErrorState
-- [ ] Footer
-- [ ] BottomNav (mobil)
+- [x] Toast
+- [x] LoadingSkeleton
+- [x] EmptyState
+- [x] ErrorState
+- [x] Footer
+- [x] BottomNav (mobil)
 
 ---
 
 ## Phase 19 — Home page
 
-- [ ] Hero + qidiruv
-- [ ] Kategoriyalar bloki
-- [ ] Tanlangan mahsulotlar
-- [ ] Yangi mahsulotlar
-- [ ] Ommabop mahsulotlar
-- [ ] Ishlatilgan mahsulotlar
-- [ ] CTA bloki
-- [ ] Footer
+- [x] Hero + qidiruv
+- [x] Kategoriyalar bloki
+- [x] Tanlangan mahsulotlar
+- [x] Yangi mahsulotlar
+- [x] Ommabop mahsulotlar
+- [x] Ishlatilgan mahsulotlar
+- [x] CTA bloki
+- [x] Footer
 - [ ] Responsive tekshiruv
 
 ---
 
 ## Phase 20 — Catalog page
 
-- [ ] Katalog layout
-- [ ] URL-sinxron filtrlar
-- [ ] Sorting
+- [x] Katalog layout
+- [x] URL-sinxron filtrlar
+- [x] Sorting
 - [x] Pagination
-- [ ] Skeleton loading
-- [ ] Empty state
-- [ ] Mobil filter drawer
+- [x] Skeleton loading
+- [x] Empty state
+- [x] Mobil filter drawer
 - [ ] Responsive tekshiruv
 
 ---
 
 ## Phase 21 — Product detail page
 
-- [ ] Gallery + lightbox
-- [ ] Video player
-- [ ] Sarlavha / narx / holat
-- [ ] Spec jadvali
-- [ ] Tavsif
-- [ ] Sotuvchi kartasi
-- [ ] Telefonni ko'rsatish
-- [ ] Share
+- [x] Gallery + lightbox
+- [x] Video player
+- [x] Sarlavha / narx / holat
+- [x] Spec jadvali
+- [x] Tavsif
+- [x] Sotuvchi kartasi
+- [x] Telefonni ko'rsatish
+- [x] Share
 - [ ] Report modal
-- [ ] O'xshash mahsulotlar
-- [ ] Ko'rishlar / sevimlilar
+- [x] O'xshash mahsulotlar
+- [x] Ko'rishlar / sevimlilar
 - [ ] Responsive tekshiruv
 
 ---
@@ -429,14 +429,14 @@ cloaking deb baholashi mumkin.
 
 ## Phase 25 — SEO
 
-- [ ] Dinamik meta teglar
-- [ ] Open Graph + Twitter card
-- [ ] Canonical
-- [ ] JSON-LD (Product, Offer, BreadcrumbList, Organization)
+- [x] Dinamik meta teglar
+- [x] Open Graph + Twitter card
+- [x] Canonical
+- [x] JSON-LD (Product, Offer, BreadcrumbList, Organization)
 - [x] sitemap.xml
 - [x] robots.txt
-- [ ] Clean URL `/products/{slug}`
-- [ ] Bot uchun prerender/meta injection
+- [x] Clean URL `/products/{slug}`
+- [x] Bot uchun prerender/meta injection
 
 ---
 

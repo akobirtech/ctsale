@@ -1,0 +1,97 @@
+{
+  "brand": { "name": "CT Sale", "tagline": "Buy and sell computers and tech" },
+  "nav": {
+    "home": "Home", "catalog": "Catalog", "categories": "Categories",
+    "favorites": "Favorites", "myProducts": "My listings", "profile": "Profile",
+    "login": "Sign in", "register": "Sign up", "logout": "Sign out",
+    "sell": "Post a listing", "admin": "Admin panel", "notifications": "Notifications",
+    "search": "Search", "menu": "Menu", "language": "Language", "theme": "Theme"
+  },
+  "home": {
+    "heroTitle": "Buy and sell computer hardware with ease",
+    "heroSubtitle": "Laptops, graphics cards, processors and components — new and used",
+    "searchPlaceholder": "Try: RTX 4060, ASUS ROG, 16GB RAM...",
+    "popularCategories": "Popular categories",
+    "featured": "Featured listings", "newest": "New listings",
+    "popular": "Most viewed", "used": "Used hardware",
+    "viewAll": "View all", "ctaTitle": "Got hardware to sell?",
+    "ctaText": "Listing is free. Once approved it also goes to our Telegram channel.",
+    "ctaButton": "Post for free"
+  },
+  "catalog": {
+    "title": "Catalog", "results": "{count} listings", "filters": "Filters",
+    "sort": "Sort", "clear": "Clear", "apply": "Apply",
+    "price": "Price", "from": "from", "to": "to", "condition": "Condition",
+    "brand": "Brand", "region": "Region", "category": "Category",
+    "showMore": "Show more", "showLess": "Show less",
+    "onlyWithPhoto": "With photo only", "onlyWithVideo": "With video only",
+    "warranty": "With warranty", "exchange": "Exchange possible",
+    "negotiable": "Negotiable price"
+  },
+  "sort": {
+    "newest": "Newest first", "oldest": "Oldest first", "price_asc": "Price: low to high",
+    "price_desc": "Price: high to low", "popular": "Popular", "most_viewed": "Most viewed"
+  },
+  "product": {
+    "condition": "Condition", "specs": "Specifications", "description": "Description",
+    "seller": "Seller", "location": "Location", "published": "Published",
+    "views": "views", "favorites": "saved", "showPhone": "Show phone number",
+    "callSeller": "Call seller", "writeTelegram": "Message on Telegram",
+    "share": "Share", "report": "Report", "similar": "Similar listings",
+    "addFavorite": "Add to favorites", "removeFavorite": "Remove from favorites",
+    "negotiable": "negotiable", "onRequest": "On request",
+    "exchangePossible": "Exchange possible", "warrantyUntil": "Warranty until",
+    "originalBox": "Original box included", "accessories": "Accessories",
+    "usagePeriod": "Time in use", "defects": "Defects",
+    "repairHistory": "Repair history", "verifiedSeller": "Verified seller",
+    "memberSince": "Member since", "sellerProducts": "Other listings by this seller",
+    "copied": "Link copied", "soldOut": "This item has been sold"
+  },
+  "condition": {
+    "new": "New", "like_new": "Like new", "good": "Good condition",
+    "fair": "Fair condition", "for_parts": "For parts"
+  },
+  "auth": {
+    "loginTitle": "Sign in to your account", "registerTitle": "Create an account",
+    "phone": "Phone number", "password": "Password", "passwordConfirm": "Confirm password",
+    "firstName": "First name", "lastName": "Last name", "code": "Verification code",
+    "forgotPassword": "Forgot password?", "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?", "sendCode": "Send code",
+    "resendCode": "Resend code", "verify": "Verify",
+    "codeSentTo": "Code sent to {phone}", "codeExpires": "Code expires in {seconds}s"
+  },
+  "seller": {
+    "dashboard": "Seller dashboard", "newProduct": "New listing",
+    "myProducts": "My listings", "statistics": "Statistics",
+    "edit": "Edit", "delete": "Delete", "submit": "Submit for review",
+    "markSold": "Mark as sold", "renew": "Extend listing",
+    "rejectReason": "Rejection reason", "step": "Step {current} of {total}",
+    "next": "Next", "back": "Back", "saveDraft": "Save as draft",
+    "uploadImages": "Upload photos", "dragDrop": "Drop files here or browse",
+    "primaryImage": "Main photo", "setPrimary": "Set as main"
+  },
+  "status": {
+    "draft": "Draft", "pending": "Under review", "approved": "Active",
+    "rejected": "Rejected", "reserved": "Reserved", "sold": "Sold",
+    "expired": "Expired", "archived": "Archived"
+  },
+  "empty": {
+    "products": "No listings yet", "search": "Nothing matched your search",
+    "searchHint": "Try a different term or remove some filters",
+    "favorites": "Your favorites list is empty",
+    "favoritesHint": "Save listings you like with the heart button",
+    "notifications": "No notifications", "myProducts": "You haven't posted any listings yet"
+  },
+  "error": {
+    "generic": "Something went wrong", "network": "Check your internet connection",
+    "notFound": "Page not found", "notFoundText": "The page you requested doesn't exist or was removed.",
+    "forbidden": "Access denied", "forbiddenText": "You don't have permission to view this page.",
+    "serverError": "Server error", "tryAgain": "Try again", "goHome": "Go home"
+  },
+  "common": {
+    "loading": "Loading...", "save": "Save", "cancel": "Cancel",
+    "confirm": "Confirm", "close": "Close", "yes": "Yes", "no": "No",
+    "all": "All", "more": "Details", "page": "Page", "of": "of",
+    "currency": "UZS", "pieces": "pcs", "required": "required"
+  }
+}

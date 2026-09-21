@@ -1,0 +1,97 @@
+{
+  "brand": { "name": "CT Sale", "tagline": "Kompyuter va texnika oldi-sotdisi" },
+  "nav": {
+    "home": "Bosh sahifa", "catalog": "Katalog", "categories": "Kategoriyalar",
+    "favorites": "Sevimlilar", "myProducts": "Mening e'lonlarim", "profile": "Profil",
+    "login": "Kirish", "register": "Ro'yxatdan o'tish", "logout": "Chiqish",
+    "sell": "E'lon joylash", "admin": "Admin panel", "notifications": "Bildirishnomalar",
+    "search": "Qidirish", "menu": "Menyu", "language": "Til", "theme": "Mavzu"
+  },
+  "home": {
+    "heroTitle": "Kompyuter texnikasini oson sotib oling va soting",
+    "heroSubtitle": "Noutbuk, videokarta, protsessor va komplektuvchilar — yangi va ishlatilgan",
+    "searchPlaceholder": "Masalan: RTX 4060, ASUS ROG, 16GB RAM...",
+    "popularCategories": "Ommabop kategoriyalar",
+    "featured": "Tanlangan e'lonlar", "newest": "Yangi e'lonlar",
+    "popular": "Ko'p ko'rilganlar", "used": "Ishlatilgan texnika",
+    "viewAll": "Barchasi", "ctaTitle": "Sizda sotiladigan texnika bormi?",
+    "ctaText": "E'lon joylash bepul. Tasdiqlangandan keyin Telegram kanalimizga ham chiqadi.",
+    "ctaButton": "Bepul e'lon joylash"
+  },
+  "catalog": {
+    "title": "Katalog", "results": "{count} ta e'lon", "filters": "Filtrlar",
+    "sort": "Saralash", "clear": "Tozalash", "apply": "Qo'llash",
+    "price": "Narx", "from": "dan", "to": "gacha", "condition": "Holati",
+    "brand": "Brend", "region": "Viloyat", "category": "Kategoriya",
+    "showMore": "Ko'proq ko'rsatish", "showLess": "Yig'ish",
+    "onlyWithPhoto": "Faqat rasmli", "onlyWithVideo": "Faqat videoli",
+    "warranty": "Kafolat bilan", "exchange": "Almashtirish mumkin",
+    "negotiable": "Narx kelishiladi"
+  },
+  "sort": {
+    "newest": "Eng yangi", "oldest": "Eng eski", "price_asc": "Arzondan qimmatga",
+    "price_desc": "Qimmatdan arzonga", "popular": "Ommabop", "most_viewed": "Ko'p ko'rilgan"
+  },
+  "product": {
+    "condition": "Holati", "specs": "Xususiyatlari", "description": "Tavsif",
+    "seller": "Sotuvchi", "location": "Manzil", "published": "E'lon qilingan",
+    "views": "ko'rish", "favorites": "sevimlida", "showPhone": "Telefonni ko'rsatish",
+    "callSeller": "Qo'ng'iroq qilish", "writeTelegram": "Telegram orqali yozish",
+    "share": "Ulashish", "report": "Shikoyat qilish", "similar": "O'xshash e'lonlar",
+    "addFavorite": "Sevimlilarga qo'shish", "removeFavorite": "Sevimlilardan olib tashlash",
+    "negotiable": "kelishiladi", "onRequest": "So'rov bo'yicha",
+    "exchangePossible": "Almashtirish mumkin", "warrantyUntil": "Kafolat muddati",
+    "originalBox": "Original quti bor", "accessories": "Aksessuarlar",
+    "usagePeriod": "Foydalanish muddati", "defects": "Kamchiliklar",
+    "repairHistory": "Ta'mirlash tarixi", "verifiedSeller": "Tasdiqlangan sotuvchi",
+    "memberSince": "Ro'yxatdan o'tgan", "sellerProducts": "Sotuvchining boshqa e'lonlari",
+    "copied": "Havola nusxalandi", "soldOut": "Bu mahsulot sotilgan"
+  },
+  "condition": {
+    "new": "Yangi", "like_new": "Deyarli yangi", "good": "Yaxshi holatda",
+    "fair": "O'rtacha holatda", "for_parts": "Ehtiyot qismlarga"
+  },
+  "auth": {
+    "loginTitle": "Hisobingizga kiring", "registerTitle": "Ro'yxatdan o'ting",
+    "phone": "Telefon raqam", "password": "Parol", "passwordConfirm": "Parolni takrorlang",
+    "firstName": "Ism", "lastName": "Familiya", "code": "Tasdiqlash kodi",
+    "forgotPassword": "Parolni unutdingizmi?", "noAccount": "Hisobingiz yo'qmi?",
+    "hasAccount": "Hisobingiz bormi?", "sendCode": "Kod yuborish",
+    "resendCode": "Kodni qayta yuborish", "verify": "Tasdiqlash",
+    "codeSentTo": "Kod {phone} raqamiga yuborildi", "codeExpires": "Kod {seconds} soniyadan keyin eskiradi"
+  },
+  "seller": {
+    "dashboard": "Sotuvchi kabineti", "newProduct": "Yangi e'lon",
+    "myProducts": "Mening e'lonlarim", "statistics": "Statistika",
+    "edit": "Tahrirlash", "delete": "O'chirish", "submit": "Moderatsiyaga yuborish",
+    "markSold": "Sotilgan deb belgilash", "renew": "Muddatni uzaytirish",
+    "rejectReason": "Rad etish sababi", "step": "{current}-qadam / {total}",
+    "next": "Keyingi", "back": "Orqaga", "saveDraft": "Qoralama sifatida saqlash",
+    "uploadImages": "Rasmlarni yuklang", "dragDrop": "Fayllarni bu yerga tashlang yoki tanlang",
+    "primaryImage": "Asosiy rasm", "setPrimary": "Asosiy qilish"
+  },
+  "status": {
+    "draft": "Qoralama", "pending": "Moderatsiyada", "approved": "Faol",
+    "rejected": "Rad etilgan", "reserved": "Band", "sold": "Sotilgan",
+    "expired": "Muddati tugagan", "archived": "Arxivda"
+  },
+  "empty": {
+    "products": "Hozircha e'lonlar yo'q", "search": "Qidiruv bo'yicha hech narsa topilmadi",
+    "searchHint": "Boshqa so'z bilan qidirib ko'ring yoki filtrlarni kamaytiring",
+    "favorites": "Sevimlilar ro'yxati bo'sh",
+    "favoritesHint": "Yoqqan e'lonni yurakcha tugmasi bilan saqlab qo'ying",
+    "notifications": "Bildirishnomalar yo'q", "myProducts": "Siz hali e'lon joylamadingiz"
+  },
+  "error": {
+    "generic": "Xatolik yuz berdi", "network": "Internetga ulanishni tekshiring",
+    "notFound": "Sahifa topilmadi", "notFoundText": "Siz qidirgan sahifa mavjud emas yoki o'chirilgan.",
+    "forbidden": "Ruxsat yo'q", "forbiddenText": "Bu sahifaga kirish huquqingiz yo'q.",
+    "serverError": "Serverda xatolik", "tryAgain": "Qaytadan urinish", "goHome": "Bosh sahifaga"
+  },
+  "common": {
+    "loading": "Yuklanmoqda...", "save": "Saqlash", "cancel": "Bekor qilish",
+    "confirm": "Tasdiqlash", "close": "Yopish", "yes": "Ha", "no": "Yo'q",
+    "all": "Barchasi", "more": "Batafsil", "page": "Sahifa", "of": "dan",
+    "currency": "so'm", "pieces": "dona", "required": "majburiy"
+  }
+}
