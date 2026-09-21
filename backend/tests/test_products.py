@@ -355,14 +355,21 @@ class TestVisibility:
 
         assert "Sotilgan mahsulot" in [i["title"] for i in response.data["results"]]
 
-    def test_deleted_product_returns_410(self, api, seller, make_product):
+    def test_deleted_product_returns_410_not_404(self, api, seller, make_product):
+        """410 "butunlay yo'q" degani — qidiruv tizimlari URL'ni
+        indeksdan 404 dagiga qaraganda tezroq chiqaradi."""
         product = make_product(seller)
         product.delete()  # soft delete
 
         response = api.get(f"{PRODUCTS_URL}{product.slug}/")
 
-        # Soft delete'dan keyin ommaviy queryset uni topmaydi.
-        assert response.status_code in (404, 410)
+        assert response.status_code == 410
+        assert response.data["error"]["code"] == "gone"
+
+    def test_never_existing_slug_returns_404(self, api):
+        response = api.get(f"{PRODUCTS_URL}hech-qachon-bolmagan/")
+
+        assert response.status_code == 404
 
     def test_old_slug_still_resolves(self, api, seller, make_product):
         product = make_product(seller)

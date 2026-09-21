@@ -277,18 +277,26 @@ class Product(BaseModel, AuditableModel):
         return self.title
 
     def save(self, *args, **kwargs):
+        # Slug o'zgarsa eskisini saqlaymiz: tashqi havolalar va qidiruv
+        # tizimlari indeksidagi URL 301 orqali yangisiga yo'naltiriladi.
+        # Tekshiruv slug yangidan yaratilganda ham kerak — `slug = ""`
+        # qilib saqlash ham manzilni o'zgartiradi.
+        update_fields = kwargs.get("update_fields")
+        touches_slug = update_fields is None or "slug" in update_fields
+        old_slug = (
+            Product.all_objects.filter(pk=self.pk).values_list("slug", flat=True).first()
+            if self.pk and touches_slug
+            else None
+        )
+
         if not self.slug:
             self.slug = make_unique_slug(Product, self.title, instance=self)
-        elif self.pk:
-            # Slug o'zgarsa eskisini saqlaymiz: tashqi havolalar va qidiruv
-            # tizimlari indeksidagi URL 301 orqali yangisiga yo'naltiriladi.
-            old_slug = (
-                Product.all_objects.filter(pk=self.pk)
-                .values_list("slug", flat=True)
-                .first()
-            )
-            if old_slug and old_slug != self.slug and old_slug not in self.previous_slugs:
-                self.previous_slugs = [*self.previous_slugs, old_slug][-10:]
+
+        if old_slug and old_slug != self.slug and old_slug not in self.previous_slugs:
+            self.previous_slugs = [*self.previous_slugs, old_slug][-10:]
+            if update_fields is not None and "previous_slugs" not in update_fields:
+                kwargs["update_fields"] = [*update_fields, "previous_slugs"]
+
         super().save(*args, **kwargs)
 
     # ------------------------------------------------------------------

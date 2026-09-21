@@ -5,7 +5,7 @@
 ```bash
 cd backend
 
-venv/Scripts/python -m pytest                 # hammasi (~16 s)
+venv/Scripts/python -m pytest                 # hammasi (~18 s)
 venv/Scripts/python -m pytest -q              # qisqa chiqish
 venv/Scripts/python -m pytest tests/test_auth.py   # bitta fayl
 venv/Scripts/python -m pytest -k "telegram"   # nom bo'yicha
@@ -15,7 +15,7 @@ venv/Scripts/python -m pytest -x --lf         # birinchi xatoda to'xta, oxirgi y
 
 Linux/macOS'da `venv/bin/python`.
 
-**Hozirgi holat: 343 test, 87% qamrov, ~18 soniya.**
+**Hozirgi holat: 359 test, 87% qamrov, ~19 soniya.**
 
 ---
 
@@ -61,15 +61,40 @@ backend/tests/
 ├── conftest.py                       fixturelar
 ├── test_auth.py                      34  ro'yxat, OTP, kirish, sessiya, parol
 ├── test_rbac.py                      34  rollar, ruxsat matritsasi, egalik
-├── test_products.py                  47  CRUD, validatsiya, holat mashinasi
+├── test_products.py                  48  CRUD, validatsiya, holat mashinasi
 ├── test_media.py                     22  MIME/magic bytes, limitlar, WebP
 ├── test_search_filters.py            35  full-text, trigram, JSONB filtr, facet
 ├── test_moderation.py                24  navbat, approve/reject, bulk
 ├── test_telegram.py                  31  shablon, usul tanlash, mock, xatolar
 ├── test_interactions_seo.py          38  sevimli, shikoyat, JSON-LD, sitemap
 ├── test_admin_api.py                 29  statistika, ban, audit, Telegram admin
-└── test_notifications_seo_services.py 25 kanallar, hreflang, schema
+├── test_notifications_seo_services.py 25 kanallar, hreflang, schema
+├── test_performance.py                24  so'rovlar soni, kesh izolyatsiyasi
+└── test_seo_redirects.py              15  301/302/410, eski slug, resolve
 ```
+
+### So'rovlar sonini o'lchash
+
+`backend/perf_audit.py` asosiy endpointlarda SQL so'rovlar sonini va
+javob vaqtini ko'rsatadi:
+
+```bash
+cd backend
+venv/Scripts/python perf_audit.py
+```
+
+```
+ENDPOINT                    SO'ROV      VAQT  HOLAT
+Bosh sahifa bloklari             8       58ms    200
+Katalog (24 ta)                  3       25ms    200
+Kategoriya + facet              10       21ms    200
+Mahsulot sahifasi                8       10ms    200
+```
+
+`tests/test_performance.py` esa shu o'lchovni **qulflab qo'yadi**:
+serializerga N+1 keltiradigan maydon qo'shilsa test yiqiladi.
+Eng muhimi `test_catalog_does_not_scale_with_result_count` — 5 ta
+va 20 ta natija uchun so'rovlar soni deyarli bir xil bo'lishi kerak.
 
 ### Fixturelar (`conftest.py`)
 

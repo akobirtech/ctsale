@@ -547,6 +547,33 @@ Mahsulot sahifasi javobidagi `seo` bloki: `title`, `description`,
 `canonical`, `robots`, `hreflang[]`, `og`, `twitter`, `jsonld[]`
 (`Product` + `BreadcrumbList`).
 
+### Eski manzillar — 301 / 410
+
+Manzil o'zgarganda eski URL indeksda qolaveradi. U 404 bersa sahifa
+yig'gan SEO vazni yo'qoladi, shuning uchun javob doim aniq bo'ladi:
+
+| Holat | Javob |
+|---|---|
+| Slug o'zgargan (`previous_slugs`) | `301` yangi manzilga |
+| `SeoRedirect` jadvalidagi yo'l | `301` yoki `302` |
+| Mahsulot o'chirilgan (soft delete) | `410 Gone` |
+| Hech qachon bo'lmagan manzil | `404` |
+
+Qaror bitta joyda — `apps/seo/redirects.py` — va uni uch tomon
+ishlatadi: `SeoRedirectMiddleware` (backend yo'llari), SSR server
+(sahifa 404 chiqqanda) va `ProductViewSet` (API 410).
+
+```http
+GET /api/v1/seo/resolve/?path=/uz/product/eski-slug
+```
+
+```json
+{ "redirect": "/uz/product/yangi-slug", "status": 301 }
+```
+
+Bu endpoint SSR server uchun: oddiy sahifalarda chaqirilmaydi, faqat
+render 404 bergan holatda. Til prefiksi javobda saqlanadi.
+
 ---
 
 ## Salomatlik

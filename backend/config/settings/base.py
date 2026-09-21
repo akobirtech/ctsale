@@ -79,6 +79,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Eski manzil 301/410 — view'ga yetib bormasdan hal qilinadi.
+    "apps.seo.middleware.SeoRedirectMiddleware",
     "apps.core.middleware.SecurityHeadersMiddleware",
     "apps.core.middleware.LastSeenMiddleware",
 ]

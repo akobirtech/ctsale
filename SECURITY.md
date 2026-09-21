@@ -253,7 +253,11 @@ avtomatik filtrlanadi (`apps/analytics/services._sanitize`).
 | `Cross-Origin-Resource-Policy` | `cross-origin` (media boshqa domendan yuklanadi) |
 | `Cache-Control` | Autentifikatsiyalangan API javoblariga `no-store, private` |
 
-`Server` headeri o'chiriladi — server versiyasi oshkor bo'lmasin.
+`Server` headeri **nginx darajasida** yashiriladi (`server_tokens off`
+va `proxy_hide_header Server`). Django middleware buni qila olmaydi:
+headerni HTTP server middleware ishlagandan keyin qo'yadi. Shu sababli
+development serverida (`runserver`) u ko'rinib turadi — bu kutilgan
+holat, productionda esa yashirin.
 
 Production'da qo'shimcha (`config/settings/prod.py`):
 

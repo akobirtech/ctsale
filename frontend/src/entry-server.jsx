@@ -67,6 +67,15 @@ export async function render(url, context = {}) {
     }
   }
 
+  // Marshrut kanonik manzilini bilsa va so'ralgani boshqa bo'lsa —
+  // doimiy redirect. Bu duplikat kontentning oldini oladi.
+  if (status === 200 && route.canonicalPath) {
+    const canonical = route.canonicalPath(data, { lang, params });
+    if (canonical && canonical !== pathname) {
+      return { redirect: `${canonical}${search ? `?${search}` : ""}`, status: 301 };
+    }
+  }
+
   // Maxfiy sahifalar SSR'da render qilinmaydi: server foydalanuvchi
   // sessiyasini bilmaydi va noto'g'ri kontent keshlanishi mumkin.
   if (route.private) {

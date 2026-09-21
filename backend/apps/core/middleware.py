@@ -46,9 +46,11 @@ class SecurityHeadersMiddleware:
         # uchun resurs siyosati cross-origin bo'lishi kerak.
         response.setdefault("Cross-Origin-Resource-Policy", "cross-origin")
 
-        # Serverning ichki tafsilotlarini oshkor qilmaslik.
-        if "Server" in response:
-            del response["Server"]
+        # `Server` headeri bu yerdan boshqarilmaydi: uni HTTP server
+        # (dev'da WSGIServer, productionda gunicorn/nginx) middleware
+        # ishlagandan KEYIN qo'yadi. Yashirish nginx darajasida
+        # qilinadi — `server_tokens off` va `proxy_hide_header Server`
+        # (deploy/nginx/*.conf).
 
         # Maxfiy javoblarni oraliq kesh saqlamasin.
         if request.path.startswith("/api/") and request.user.is_authenticated:

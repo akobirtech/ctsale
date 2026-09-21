@@ -11,7 +11,7 @@ Nginx bu yo'llarni backendga uzatadi (DEPLOYMENT.md ga qarang):
 """
 
 from django.conf import settings
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.utils import timezone
 from django.views.decorators.cache import cache_page
 from django.views.decorators.http import require_GET
@@ -19,6 +19,7 @@ from django.views.decorators.http import require_GET
 from apps.catalog.models import Category
 from apps.products.models import Product, ProductStatus
 
+from . import redirects
 from .models import SeoSettings, StaticPageSeo
 from .services import site_allows_indexing
 
@@ -284,3 +285,20 @@ def _indexable_products():
         Product.objects.filter(status__in=statuses, is_indexable=True)
         .order_by("-published_at", "-created_at")[: config.sitemap_products_limit]
     )
+
+
+@require_GET
+def resolve_redirect(request):
+    """SSR server 404 chiqqanda shu yerdan redirect so'raydi.
+
+    JSON qaytaradi: `{"redirect": "/uz/product/yangi", "status": 301}`
+    yoki topilmasa `{"redirect": null, "status": 404}`.
+    """
+    path = request.GET.get("path", "")
+    if not path.startswith("/") or len(path) > 400:
+        return JsonResponse({"redirect": None, "status": 404})
+
+    decision = redirects.resolve(path)
+    if decision is None:
+        return JsonResponse({"redirect": None, "status": 404})
+    return JsonResponse({"redirect": decision["target"], "status": decision["status"]})

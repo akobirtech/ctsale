@@ -82,6 +82,10 @@ export const routes = [
       const similar = await products.similar(params.slug, lang).catch(() => []);
       return { product, similar };
     },
+    // Slug o'zgargan bo'lsa backend eski slug bo'yicha ham javob beradi.
+    // Ikki manzilda bir xil kontent turmasligi uchun eskisidan 301 qilamiz.
+    canonicalPath: (data, { lang }) =>
+      data?.product?.slug ? `/${lang}/product/${data.product.slug}` : null,
   },
   { id: "login", path: "login", Component: LoginPage },
   { id: "register", path: "register", Component: RegisterPage },

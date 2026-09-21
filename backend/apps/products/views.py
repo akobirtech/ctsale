@@ -44,6 +44,18 @@ from .serializers import (
 
 logger = logging.getLogger(__name__)
 
+
+class ProductGone(BusinessError):
+    """O'chirilgan e'lon uchun 410 Gone.
+
+    404 "hozircha topilmadi" degani, 410 esa "butunlay yo'q" —
+    qidiruv tizimlari ikkinchisida URL'ni indeksdan tezroq chiqaradi.
+    """
+
+    status_code = 410
+    default_detail = "Bu e'lon o'chirilgan."
+    default_code = "gone"
+
 # Bir xil IP/foydalanuvchi shu muddat ichida ko'rishni takrorlasa
 # hisoblanmaydi.
 VIEW_DEDUPE_HOURS = 24
@@ -176,21 +188,6 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         product = self.get_object()
-
-        # O'chirilgan e'lon: 410 Gone — qidiruv tizimlari uni
-        # indeksdan chiqarsin (404 dan ko'ra aniqroq signal).
-        if product.is_deleted:
-            return Response(
-                {
-                    "error": {
-                        "code": "gone",
-                        "message": "Bu e'lon o'chirilgan.",
-                        "details": {},
-                    }
-                },
-                status=status.HTTP_410_GONE,
-            )
-
         self._register_view(product, request)
         serializer = self.get_serializer(product)
         return Response(serializer.data)
@@ -211,6 +208,14 @@ class ProductViewSet(viewsets.ModelViewSet):
         if moved is not None:
             self.check_object_permissions(self.request, moved)
             return moved
+
+        # O'chirilgan e'lon: `get_queryset` uni ko'rsatmaydi, lekin
+        # qidiruv tizimiga 404 emas, 410 aytish kerak — "bu manzil
+        # butunlay yo'q, indeksdan chiqaring" degani.
+        if self.action == "retrieve" and Product.all_objects.filter(
+            slug=slug, is_deleted=True
+        ).exists():
+            raise ProductGone
 
         from django.http import Http404
 

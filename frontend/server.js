@@ -62,6 +62,26 @@ async function proxyToBackend(req, res) {
   }
 }
 
+/**
+ * 404 chiqqan yo'l uchun backendda redirect bormi?
+ *
+ * Faqat topilmagan sahifalarda so'raladi — normal sahifalar uchun
+ * qo'shimcha so'rov bo'lmaydi.
+ */
+async function lookupRedirect(pathname) {
+  try {
+    const url = `${apiTarget}/api/v1/seo/resolve/?path=${encodeURIComponent(pathname)}`;
+    const response = await fetch(url, { signal: AbortSignal.timeout(2000) });
+    if (!response.ok) return null;
+    const body = await response.json();
+    return body.redirect || body.status === 410 ? body : null;
+  } catch {
+    // Backend javob bermasa oddiy 404 ko'rsatiladi — redirect uchun
+    // sahifani butunlay yiqitish noto'g'ri bo'lardi.
+    return null;
+  }
+}
+
 app.use("/api", proxyToBackend);
 app.use("/media", proxyToBackend);
 // robots.txt va sitemap ham backenddan keladi (dinamik generatsiya).
@@ -116,6 +136,17 @@ app.use("*", async (req, res) => {
     // Render `redirect` qaytarsa (masalan "/" -> "/uz") shu yerda bajariladi.
     if (rendered.redirect) {
       return res.redirect(rendered.status || 302, rendered.redirect);
+    }
+
+    // Sahifa topilmadi — ehtimol manzil o'zgargandir.
+    if (rendered.status === 404) {
+      const moved = await lookupRedirect(url.split("?")[0]);
+      if (moved?.redirect) {
+        return res.redirect(moved.status || 301, moved.redirect);
+      }
+      if (moved?.status === 410) {
+        rendered.status = 410;
+      }
     }
 
     const html = template

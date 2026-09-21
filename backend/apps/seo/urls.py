@@ -11,6 +11,8 @@ app_name = "seo"
 
 urlpatterns = [
     path("robots.txt", views.robots_txt, name="robots"),
+    # SSR server uchun: 404 chiqqan yo'l uchun redirect bormi?
+    path("api/v1/seo/resolve/", views.resolve_redirect, name="resolve-redirect"),
     path("sitemap.xml", views.sitemap_index, name="sitemap-index"),
     re_path(r"^sitemap-(?P<lang>[a-z]{2})\.xml$", views.sitemap_language, name="sitemap-lang"),
     re_path(r"^sitemap-pages-(?P<lang>[a-z]{2})\.xml$", views.sitemap_pages, name="sitemap-pages"),

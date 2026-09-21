@@ -3,7 +3,7 @@
 > Doimiy progress tracker. Bajarilgan task hech qachon o'chirilmaydi, faqat `[x]` qilinadi.
 > Oxirgi yangilanish: 2026-09-20
 
-**Progress:** Phase 29 / 30 (performance optimallashtirildi; qolgani: final QA, Gemini AI)
+**Progress:** Phase 30 / 30 — yakuniy QA o'tdi. Qolgani: Gemini AI (yangi talab)
 
 ---
 
@@ -44,8 +44,8 @@ ta'sir qilganlari migration qilishdan OLDIN kiritildi.
 - [x] Dinamik multilingual sitemap (/sitemap.xml, /sitemap-{uz,ru,en}.xml)
 - [x] hreflang + x-default barcha public sahifalarda
 - [x] JSON-LD: Product, Offer, BreadcrumbList, Organization, WebSite, SearchAction
-- [ ] 301 redirect middleware (SeoRedirect modeli asosida)
-- [ ] 410 Gone — o'chirilgan mahsulot uchun
+- [x] 301 redirect middleware (SeoRedirect modeli asosida)
+- [x] 410 Gone — o'chirilgan mahsulot uchun
 - [x] Multilingual 404 sahifasi
 - [x] Sotilgan mahsulot uchun SEO strategiyasi (200 + SoldOut)
 
@@ -442,15 +442,15 @@ cloaking deb baholashi mumkin.
 
 ## Phase 26 — Security
 
-- [ ] CORS / CSRF sozlamalari
-- [ ] Security headerlar
-- [ ] Rate limiting (barcha kritik endpoint)
-- [ ] Brute-force himoya
-- [ ] Fayl yuklash xavfsizligi
-- [ ] Telefon raqam himoyasi
-- [ ] JWT xavfsizligi
-- [ ] Secrets menejment
-- [ ] IDOR / privilege escalation tekshiruvi
+- [x] CORS / CSRF sozlamalari
+- [x] Security headerlar
+- [x] Rate limiting (barcha kritik endpoint)
+- [x] Brute-force himoya
+- [x] Fayl yuklash xavfsizligi
+- [x] Telefon raqam himoyasi
+- [x] JWT xavfsizligi
+- [x] Secrets menejment
+- [x] IDOR / privilege escalation tekshiruvi
 - [x] SECURITY.md
 
 ---
@@ -495,27 +495,27 @@ cloaking deb baholashi mumkin.
 
 ## Phase 30 — FINAL QA
 
-- [ ] Frontend build
-- [ ] Backend tests
-- [ ] API tests
-- [ ] Authentication test
-- [ ] Role test
-- [ ] Product CRUD
-- [ ] Media upload
-- [ ] Multiple images
-- [ ] Video upload
-- [ ] Search
-- [ ] Filters
-- [ ] Favorites
-- [ ] Seller
-- [ ] Admin
-- [ ] Moderation
-- [ ] Telegram bot
-- [ ] Telegram channel
-- [ ] Telegram auto publish
-- [ ] Error handling
-- [ ] Responsive
-- [ ] Security
-- [ ] Performance
-- [ ] SEO
-- [ ] Documentation
+- [x] Frontend build
+- [x] Backend tests
+- [x] API tests
+- [x] Authentication test
+- [x] Role test
+- [x] Product CRUD
+- [x] Media upload
+- [x] Multiple images
+- [x] Video upload
+- [x] Search
+- [x] Filters
+- [x] Favorites
+- [x] Seller
+- [x] Admin
+- [x] Moderation
+- [x] Telegram bot
+- [x] Telegram channel
+- [x] Telegram auto publish
+- [x] Error handling
+- [x] Responsive
+- [x] Security
+- [x] Performance
+- [x] SEO
+- [x] Documentation
