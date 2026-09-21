@@ -209,7 +209,7 @@ class TestRejection:
 
         product.refresh_from_db()
         assert product.status == ProductStatus.PENDING
-        latest = product.moderation_tasks.order_by("-created_at").first()
+        latest = product.moderation_tasks.order_by("-id").first()
         assert latest.is_resubmission is True
 
 

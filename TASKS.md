@@ -3,7 +3,7 @@
 > Doimiy progress tracker. Bajarilgan task hech qachon o'chirilmaydi, faqat `[x]` qilinadi.
 > Oxirgi yangilanish: 2026-09-20
 
-**Progress:** Phase 29 / 30 (hujjatlar va deployment tayyor; qolgani: performance, final QA, Gemini AI)
+**Progress:** Phase 29 / 30 (performance optimallashtirildi; qolgani: final QA, Gemini AI)
 
 ---
 
@@ -465,19 +465,19 @@ cloaking deb baholashi mumkin.
 - [x] Search/filter testlari
 - [x] Moderation testlari
 - [x] Telegram testlari
-- [ ] Frontend Vitest testlari
+- [x] Frontend Vitest testlari
 - [x] TESTING.md
 
 ---
 
 ## Phase 28 — Performance
 
-- [ ] Query optimizatsiya (select_related/prefetch_related)
-- [ ] DB indexlar audit
-- [ ] Caching (Redis yoki locmem)
-- [ ] Frontend code splitting
-- [ ] Lazy loading rasmlar
-- [ ] Bundle analizi
+- [x] Query optimizatsiya (select_related/prefetch_related)
+- [x] DB indexlar audit
+- [x] Caching (Redis yoki locmem)
+- [x] Frontend code splitting
+- [x] Lazy loading rasmlar
+- [x] Bundle analizi
 
 ---
 

@@ -28,15 +28,29 @@ class SpecDisplaySerializer(serializers.Serializer):
     in_card = serializers.BooleanField()
 
 
-def build_spec_display(product, lang=None):
-    """`specs` JSONB ni kategoriya sxemasi bilan birlashtiradi."""
+def build_spec_display(product, lang=None, attribute_cache=None):
+    """`specs` JSONB ni kategoriya sxemasi bilan birlashtiradi.
+
+    `attribute_cache` — so'rov davomidagi {category_id: [xususiyatlar]}
+    lug'ati. Usiz katalogdagi har bir karta uchun sxema qaytadan
+    so'raladi: 24 ta mahsulot = 72 ta ortiqcha SQL so'rovi.
+    """
     if not product.specs or not product.category_id:
         return []
 
     lang = lang if lang in settings.SUPPORTED_LANGUAGES else settings.DEFAULT_LANGUAGE
+
+    if attribute_cache is None:
+        definitions = product.category.inherited_attributes()
+    else:
+        definitions = attribute_cache.get(product.category_id)
+        if definitions is None:
+            definitions = list(product.category.inherited_attributes())
+            attribute_cache[product.category_id] = definitions
+
     rows = []
 
-    for definition in product.category.inherited_attributes():
+    for definition in definitions:
         value = product.specs.get(definition.code)
         if value in (None, "", []):
             continue
@@ -133,9 +147,11 @@ class ProductCardSerializer(PriceMixin, serializers.ModelSerializer):
 
     def get_card_specs(self, obj):
         """Kartada ko'rsatiladigan 3 ta xususiyat (masalan RTX 4060 / 16GB / 1TB)."""
-        rows = self.context.get("spec_rows", {}).get(obj.pk)
-        if rows is None:
-            rows = build_spec_display(obj, self.context.get("lang"))
+        rows = build_spec_display(
+            obj,
+            self.context.get("lang"),
+            attribute_cache=self.context.get("attribute_cache"),
+        )
         return [
             f"{row['value']} {row['unit']}".strip()
             for row in rows
@@ -212,7 +228,11 @@ class ProductDetailSerializer(PriceMixin, serializers.ModelSerializer):
         return obj.district.name_uz if obj.district_id else None
 
     def get_spec_rows(self, obj):
-        return build_spec_display(obj, self.context.get("lang"))
+        return build_spec_display(
+            obj,
+            self.context.get("lang"),
+            attribute_cache=self.context.get("attribute_cache"),
+        )
 
     def get_is_favorited(self, obj):
         request = self.context.get("request")

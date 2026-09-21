@@ -66,7 +66,10 @@ class ModerationTask(TimeStampedModel):
     class Meta:
         verbose_name = "moderatsiya vazifasi"
         verbose_name_plural = "moderatsiya vazifalari"
-        ordering = ["-created_at"]
+        # `id` tiebreaker sifatida: bir e'lon rad etilib darhol qayta
+        # yuborilsa ikki vazifa bir xil vaqt tamg'asini olishi mumkin
+        # va tartib tasodifiy bo'lib qolardi.
+        ordering = ["-created_at", "-id"]
         indexes = [
             models.Index(fields=["status", "created_at"], name="moderation_status_idx"),
             models.Index(fields=["assignee", "status"], name="moderation_assignee_idx"),

@@ -73,8 +73,17 @@ class ProductQuerySet(models.QuerySet):
         return self.filter(status=ProductStatus.APPROVED, is_deleted=False)
 
     def with_relations(self):
+        # Kategoriya ota-onalari ham olinadi: xususiyatlar merosi va
+        # breadcrumbs daraxt bo'ylab yuqoriga chiqadi, `parent` siz
+        # har qadam alohida so'rov bo'lardi. Daraxt amalda 3 darajali.
         return self.select_related(
-            "seller", "category", "brand", "region", "district"
+            "seller",
+            "category",
+            "category__parent",
+            "category__parent__parent",
+            "brand",
+            "region",
+            "district",
         ).prefetch_related("images")
 
 

@@ -376,7 +376,7 @@ def _close_moderation_task(
     task = (
         ModerationTask.objects.filter(product=product)
         .exclude(status__in=[ModerationStatus.APPROVED, ModerationStatus.REJECTED])
-        .order_by("-created_at")
+        .order_by("-created_at", "-id")
         .first()
     )
     if task is None:

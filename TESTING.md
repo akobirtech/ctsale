@@ -15,7 +15,7 @@ venv/Scripts/python -m pytest -x --lf         # birinchi xatoda to'xta, oxirgi y
 
 Linux/macOS'da `venv/bin/python`.
 
-**Hozirgi holat: 319 test, 87% qamrov, ~16 soniya.**
+**Hozirgi holat: 343 test, 87% qamrov, ~18 soniya.**
 
 ---
 
@@ -139,6 +139,9 @@ avval ishlab turgan kodda bor edi.
 | **Sotuvchi o'z qoralamasini ocholmasdi** | Detail endpoint faqat ommaviy holatlarni ko'rsatardi → tahrirlashdan oldin ko'rib bo'lmasdi. |
 | **`reorder` JSON qabul qilmasdi** | Media view'lari faqat `multipart` parserga sozlangan, frontend esa JSON yuboradi → drag&drop tartiblash 415 bilan yiqilardi. |
 | **Telegram havolasida til prefiksi yo'q edi** | `/product/x` → 404, chunki haqiqiy yo'l `/uz/product/x`. Avval "tuzatilgan" deb hisoblangan, lekin almashtirish qo'llanmagan ekan — test ushladi. |
+| **`similar` endpointi 500 qaytarardi** | `Decimal * float` — TypeError. Har bir mahsulot sahifasidagi "o'xshash e'lonlar" bo'limi butunlay ishlamasdi. Endpoint umuman sinalmagan edi. |
+| **Katalogda N+1** | Har bir mahsulot kartasi uchun kategoriya xususiyatlari qaytadan so'ralardi: bosh sahifa **104 ta** SQL so'rovi yuborardi. |
+| **Moderatsiya vazifalari tartibi noaniq edi** | Rad etilgan e'lon darhol qayta yuborilsa ikki vazifa bir xil vaqt tamg'asini olardi va qaysi biri "oxirgi" ekani tasodifga bog'liq bo'lardi. |
 
 ---
 

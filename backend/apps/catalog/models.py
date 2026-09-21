@@ -6,11 +6,36 @@ Shu sababli yangi xususiyat qo'shish uchun migration kerak emas, lekin
 o'qish bitta qatordan bo'ladi.
 """
 
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import models
 
 from apps.core.models import TimeStampedModel
 from apps.core.utils import make_unique_slug
+
+# Xususiyat sxemasi deyarli o'zgarmaydi, lekin har bir mahsulot
+# kartasi uchun kerak bo'ladi. Kesh versiyasi sxema o'zgarganda
+# ko'tariladi — shunda eski yozuvlar bir zumda yaroqsiz bo'ladi va
+# alohida o'chirish kerak emas.
+ATTRIBUTE_CACHE_VERSION_KEY = "catalog:attr:version"
+ATTRIBUTE_CACHE_TTL = 3600
+
+
+def attributes_cache_version():
+    version = cache.get(ATTRIBUTE_CACHE_VERSION_KEY)
+    if version is None:
+        version = 1
+        cache.set(ATTRIBUTE_CACHE_VERSION_KEY, version, None)
+    return version
+
+
+def bump_attributes_cache():
+    """Sxema o'zgarganda chaqiriladi (signallar orqali)."""
+    try:
+        cache.incr(ATTRIBUTE_CACHE_VERSION_KEY)
+    except ValueError:
+        # Kalit hali yo'q yoki kesh tozalangan.
+        cache.set(ATTRIBUTE_CACHE_VERSION_KEY, 1, None)
 
 
 class Region(TimeStampedModel):
@@ -155,29 +180,58 @@ class Category(TimeStampedModel):
         return list(reversed(chain))
 
     def descendant_ids(self):
-        """O'zi + barcha avlodlari — katalogda 'ota kategoriya' tanlanganda."""
+        """O'zi + barcha avlodlari — katalogda 'ota kategoriya' tanlanganda.
+
+        Butun daraxt bitta so'rovda o'qiladi va xotirada aylaniladi:
+        qavat-qavat so'rash har daraja uchun alohida SQL degani edi.
+        Kategoriyalar soni kichik (~70), shuning uchun hammasini olish
+        arzonroq. Natija xususiyatlar bilan bir xil versiyada keshlanadi.
+        """
+        key = f"catalog:descendants:{attributes_cache_version()}:{self.pk}"
+        cached = cache.get(key)
+        if cached is not None:
+            return cached
+
+        pairs = Category.objects.values_list("pk", "parent_id")
+        children_by_parent = {}
+        for pk, parent_id in pairs:
+            children_by_parent.setdefault(parent_id, []).append(pk)
+
         ids, stack = [self.pk], [self.pk]
         while stack:
             current = stack.pop()
-            children = list(
-                Category.objects.filter(parent_id=current).values_list("pk", flat=True)
-            )
+            children = children_by_parent.get(current, [])
             ids.extend(children)
             stack.extend(children)
+
+        cache.set(key, ids, ATTRIBUTE_CACHE_TTL)
         return ids
 
-    def inherited_attributes(self):
+    def inherited_attributes(self, use_cache=True):
         """O'z atributlari + ota kategoriyalardan meros olganlari.
 
         Masalan "Elektronika" da `warranty` bo'lsa, "Noutbuk" ham oladi.
+
+        Natija keshlanadi: katalogdagi har bir karta shu ro'yxatni
+        so'raydi va sxema soatlab o'zgarmay turadi.
         """
+        if use_cache:
+            key = f"catalog:attrs:{attributes_cache_version()}:{self.pk}"
+            cached = cache.get(key)
+            if cached is not None:
+                return cached
+
         category_ids = [c.pk for c in self.ancestors(include_self=True)]
-        return (
+        definitions = list(
             AttributeDefinition.objects.filter(category_id__in=category_ids, is_active=True)
             .select_related("category")
             .prefetch_related("options")
             .order_by("order", "label_uz")
         )
+
+        if use_cache:
+            cache.set(key, definitions, ATTRIBUTE_CACHE_TTL)
+        return definitions
 
 
 class Brand(TimeStampedModel):

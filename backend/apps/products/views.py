@@ -6,8 +6,10 @@ SEO va mehmonlar uchun. Yozish faqat egasi yoki ruxsati borga.
 
 import hashlib
 import logging
+from decimal import Decimal
 
 from django.conf import settings
+from django.core.cache import cache
 from django.contrib.postgres.search import SearchQuery, SearchRank, TrigramSimilarity
 from django.db.models import F, Q
 from django.utils import timezone
@@ -32,7 +34,7 @@ from .filters import (
     apply_spec_filters,
     build_facets,
 )
-from .models import Product, ProductStatus, PUBLIC_STATUSES, SearchQueryLog
+from .models import Condition, Product, ProductStatus, PUBLIC_STATUSES, SearchQueryLog
 from .serializers import (
     ProductCardSerializer,
     ProductDetailSerializer,
@@ -46,6 +48,9 @@ logger = logging.getLogger(__name__)
 # hisoblanmaydi.
 VIEW_DEDUPE_HOURS = 24
 MIN_SEARCH_LENGTH = 2
+# Bosh sahifa bloklari sekundiga bir necha marta so'raladi, lekin
+# tarkibi daqiqalab o'zgarmaydi.
+FEATURED_CACHE_SECONDS = 60
 
 
 def _hash_ip(ip):
@@ -94,6 +99,8 @@ class ProductViewSet(viewsets.ModelViewSet):
         context = super().get_serializer_context()
         context["lang"] = self._language()
         context["favorited_ids"] = self._favorited_ids()
+        # Xususiyat sxemasi so'rov davomida bir marta o'qiladi.
+        context["attribute_cache"] = {}
         return context
 
     def _language(self):
@@ -493,7 +500,9 @@ class ProductViewSet(viewsets.ModelViewSet):
         )
 
         if product.price:
-            low, high = product.price * 0.6, product.price * 1.6
+            # Narx Decimal — float bilan ko'paytirib bo'lmaydi.
+            low = product.price * Decimal("0.6")
+            high = product.price * Decimal("1.6")
             nearby = queryset.filter(price__gte=low, price__lte=high)
             if nearby.count() >= 4:
                 queryset = nearby
@@ -507,26 +516,44 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def featured(self, request):
-        """Bosh sahifa bloklari: featured / new / popular / used."""
+        """Bosh sahifa bloklari: featured / new / popular / used.
+
+        Eng ko'p ochiladigan sahifa va to'rtta alohida ro'yxatni
+        yig'adi. Mehmonlar uchun javob keshlanadi — ular saytdagi
+        trafikning katta qismi va ularda shaxsiy ma'lumot yo'q.
+
+        Kirgan foydalanuvchiga kesh berilmaydi: javobda `is_favorited`
+        bor va u kimga tegishli ekaniga bog'liq — keshlansa bir
+        foydalanuvchining sevimlilari boshqasiga ko'rinib qolardi.
+        """
+        try:
+            limit = min(max(int(request.query_params.get("limit", 12)), 1), 24)
+        except (TypeError, ValueError):
+            limit = 12
+
+        cache_key = None
+        if request.user.is_anonymous:
+            cache_key = f"products:featured:{self._language()}:{limit}"
+            cached = cache.get(cache_key)
+            if cached is not None:
+                return Response(cached)
+
         base = Product.objects.with_relations().active()
         context = self.get_serializer_context()
-        limit = min(int(request.query_params.get("limit", 12)), 24)
 
         def serialize(queryset):
             return ProductCardSerializer(queryset[:limit], many=True, context=context).data
 
-        return Response(
-            {
-                "featured": serialize(
-                    base.filter(is_featured=True).order_by("-published_at")
-                ),
-                "newest": serialize(base.order_by("-published_at")),
-                "popular": serialize(base.order_by("-views_count", "-favorites_count")),
-                "used": serialize(
-                    base.exclude(condition="new").order_by("-published_at")
-                ),
-            }
-        )
+        payload = {
+            "featured": serialize(base.filter(is_featured=True).order_by("-published_at")),
+            "newest": serialize(base.order_by("-published_at")),
+            "popular": serialize(base.order_by("-views_count", "-favorites_count")),
+            "used": serialize(base.exclude(condition=Condition.NEW).order_by("-published_at")),
+        }
+
+        if cache_key:
+            cache.set(cache_key, payload, FEATURED_CACHE_SECONDS)
+        return Response(payload)
 
     @action(detail=True, methods=["post"], url_path="reveal-phone",
             permission_classes=[AllowAny])
