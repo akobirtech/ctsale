@@ -253,7 +253,7 @@ cloaking deb baholashi mumkin.
 - [x] HAQIQIY kanalga post yuborildi va tekshirildi (t.me/notbuk_sot/4)
 - [x] Ochiq bo'lmagan URL (localhost) uchun chidamli fallback
 - [x] Bot handlerlari (/start, qidiruv, mening e'lonlarim)
-- [ ] Admin panelda qayta jo'natish
+- [x] Admin panelda qayta jo'natish
 - [x] TELEGRAM.md hujjati
 - [x] Telegram testlari (mock)
 
@@ -319,7 +319,7 @@ cloaking deb baholashi mumkin.
 
 - [x] Navbar
 - [x] SearchBar (debounce + autocomplete)
-- [ ] CategoryMenu (mega menu)
+- [x] CategoryMenu (mega menu)
 - [x] ProductCard
 - [x] ProductGrid
 - [x] ProductGallery + Lightbox
@@ -376,7 +376,7 @@ cloaking deb baholashi mumkin.
 - [x] Sotuvchi kartasi
 - [x] Telefonni ko'rsatish
 - [x] Share
-- [ ] Report modal
+- [x] Report modal
 - [x] O'xshash mahsulotlar
 - [x] Ko'rishlar / sevimlilar
 - [ ] Responsive tekshiruv
@@ -389,9 +389,9 @@ cloaking deb baholashi mumkin.
 - [x] Login sahifasi
 - [x] Parolni tiklash
 - [x] Profil sahifasi
-- [ ] Avatar yuklash
+- [x] Avatar yuklash
 - [x] Sevimlilar sahifasi
-- [ ] Bildirishnomalar sahifasi
+- [x] Bildirishnomalar sahifasi
 - [x] Sozlamalar
 
 ---
@@ -403,8 +403,8 @@ cloaking deb baholashi mumkin.
 - [x] Media drag & drop
 - [x] Mening e'lonlarim (status bo'yicha)
 - [x] E'lon tahrirlash
-- [ ] Statistika
-- [ ] Do'kon profili
+- [x] Statistika
+- [x] Do'kon profili
 - [x] Rad etilgan e'lon sababi ko'rinishi
 
 ---
@@ -414,14 +414,14 @@ cloaking deb baholashi mumkin.
 - [x] Admin layout + sidebar
 - [x] Dashboard + chartlar
 - [x] Moderatsiya navbati
-- [ ] Mahsulotlar jadvali (filtr/qidiruv/bulk)
+- [x] Mahsulotlar jadvali (filtr/qidiruv/bulk)
 - [x] Foydalanuvchilar
 - [x] Rollar va ruxsatlar
-- [ ] Kategoriya CRUD
-- [ ] Atribut CRUD
-- [ ] Brend CRUD
+- [x] Kategoriya CRUD
+- [x] Atribut CRUD
+- [x] Brend CRUD
 - [x] Telegram sozlamalari + postlar
-- [ ] Shikoyatlar
+- [x] Shikoyatlar
 - [x] Audit log
 - [x] Confirmation modal + toast
 

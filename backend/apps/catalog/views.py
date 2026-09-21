@@ -155,12 +155,28 @@ class AttributeViewSet(ReadWritePermissionMixin, viewsets.ModelViewSet):
         queryset = AttributeDefinition.objects.select_related("category").prefetch_related(
             Prefetch("options")
         )
-        category_slug = self.request.query_params.get("category")
-        if category_slug:
-            queryset = queryset.filter(category__slug=category_slug)
-        if self.action in ("list", "retrieve"):
+        # Kategoriya slug yoki ID bo'yicha berilishi mumkin: sayt
+        # slug bilan ishlaydi, admin paneli esa ro'yxatdan ID oladi.
+        category = self.request.query_params.get("category")
+        if category:
+            if str(category).isdigit():
+                queryset = queryset.filter(category_id=category)
+            else:
+                queryset = queryset.filter(category__slug=category)
+
+        # Nofaol xususiyatlar ommaga ko'rinmaydi, lekin ularni
+        # boshqaradigan xodim ko'rmasa qayta yoqa olmasdi.
+        if self.action in ("list", "retrieve") and not self._may_manage():
             queryset = queryset.filter(is_active=True)
+
         return queryset.order_by("order", "label_uz")
+
+    def _may_manage(self):
+        user = self.request.user
+        return bool(
+            user.is_authenticated and getattr(user, "has_perm_code", None)
+            and user.has_perm_code(P.ATTRIBUTE_MANAGE)
+        )
 
     def get_serializer_class(self):
         if self.action in ("create", "update", "partial_update"):

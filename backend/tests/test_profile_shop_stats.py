@@ -33,6 +33,16 @@ class TestAvatarUpload:
         assert "avatar" in response.data["error"]["details"]
         assert not user.avatar
 
+    def test_can_be_removed(self, auth_client, user, image_file):
+        client = auth_client(user)
+        client.patch(ME_URL, {"avatar": image_file()}, format="multipart")
+
+        response = client.patch(ME_URL, {"avatar": ""}, format="multipart")
+
+        user.refresh_from_db()
+        assert response.status_code == 200
+        assert not user.avatar
+
     def test_anonymous_cannot_upload(self, api, image_file):
         response = api.patch(ME_URL, {"avatar": image_file()}, format="multipart")
 
@@ -178,3 +188,4 @@ class TestSellerStats:
         response = auth_client(seller).get(STATS_URL)
 
         assert response.data["totals"]["total"] == 1
+

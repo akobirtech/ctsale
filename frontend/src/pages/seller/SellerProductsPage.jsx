@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   AlertCircle,
+  BarChart3,
   Eye,
   Heart,
   Pencil,
@@ -308,10 +309,16 @@ export default function SellerProductsPage() {
     <div className="container-page py-6">
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-xl font-bold sm:text-2xl">{t("seller.myProducts")}</h1>
-        <Link to={localePath("/seller/products/new")} className="btn btn-primary btn-sm">
-          <Plus size={16} aria-hidden="true" />
-          {t("seller.newProduct")}
-        </Link>
+        <div className="flex gap-2">
+          <Link to={localePath("/seller/statistics")} className="btn btn-secondary btn-sm">
+            <BarChart3 size={16} aria-hidden="true" />
+            {t("seller.statistics")}
+          </Link>
+          <Link to={localePath("/seller/products/new")} className="btn btn-primary btn-sm">
+            <Plus size={16} aria-hidden="true" />
+            {t("seller.newProduct")}
+          </Link>
+        </div>
       </div>
 
       <RequireAuth>

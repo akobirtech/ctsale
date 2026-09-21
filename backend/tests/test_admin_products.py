@@ -288,3 +288,54 @@ class TestBulk:
         )
 
         assert response.data["affected"] == 0
+
+
+class TestAttributeVisibility:
+    """Xususiyat sxemasi: kim nimani ko'radi va qanday filtrlaydi."""
+
+    @pytest.fixture
+    def attributes(self, category):
+        from apps.catalog.models import AttributeDefinition, AttributeType
+
+        active = AttributeDefinition.objects.get(category=category, code="cpu")
+        hidden = AttributeDefinition.objects.create(
+            category=category,
+            code="eskirgan",
+            label_uz="Eskirgan xususiyat",
+            data_type=AttributeType.TEXT,
+            is_active=False,
+        )
+        return {"active": active, "hidden": hidden}
+
+    def _codes(self, response):
+        return [row["code"] for row in response.data]
+
+    def test_filter_by_category_id(self, auth_client, admin, category, attributes):
+        response = auth_client(admin).get(f"/api/v1/attributes/?category={category.id}")
+
+        assert response.status_code == 200
+        assert attributes["active"].code in self._codes(response)
+
+    def test_filter_by_category_slug(self, api, category, attributes):
+        response = api.get(f"/api/v1/attributes/?category={category.slug}")
+
+        assert attributes["active"].code in self._codes(response)
+
+    def test_guests_never_see_inactive(self, api, category, attributes):
+        response = api.get(f"/api/v1/attributes/?category={category.slug}")
+
+        assert "eskirgan" not in self._codes(response)
+
+    def test_manager_sees_inactive_to_re_enable_it(
+        self, auth_client, admin, category, attributes
+    ):
+        response = auth_client(admin).get(f"/api/v1/attributes/?category={category.id}")
+
+        assert "eskirgan" in self._codes(response)
+
+    def test_moderator_without_the_permission_does_not(
+        self, auth_client, moderator, category, attributes
+    ):
+        response = auth_client(moderator).get(f"/api/v1/attributes/?category={category.id}")
+
+        assert "eskirgan" not in self._codes(response)

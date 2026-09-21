@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Bell, KeyRound, LogOut, Package, Save, User } from "lucide-react";
+import { Bell, Heart, KeyRound, LogOut, Package, Save, Store, User } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
 import { fieldErrors } from "../api/client";
 import { auth as authApi, catalog as catalogApi } from "../api/endpoints";
+import AvatarUpload from "../components/auth/AvatarUpload";
 import RequireAuth from "../components/auth/RequireAuth";
 import Field from "../components/ui/Field";
 import { useToast } from "../hooks/useToast";
@@ -82,6 +83,8 @@ function ProfileForm() {
   return (
     <form onSubmit={save} className="surface space-y-4 p-5" noValidate>
       <h2 className="text-base font-bold">{t("nav.profile")}</h2>
+
+      <AvatarUpload />
 
       <div>
         <span className="label">{t("auth.phone")}</span>
@@ -278,8 +281,22 @@ export default function ProfilePage() {
               to={localePath("/favorites")}
               className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-[var(--surface-hover)]"
             >
-              <Bell size={16} aria-hidden="true" />
+              <Heart size={16} aria-hidden="true" />
               {t("nav.favorites")}
+            </Link>
+            <Link
+              to={localePath("/notifications")}
+              className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-[var(--surface-hover)]"
+            >
+              <Bell size={16} aria-hidden="true" />
+              {t("nav.notifications")}
+            </Link>
+            <Link
+              to={localePath("/seller/shop")}
+              className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-[var(--surface-hover)]"
+            >
+              <Store size={16} aria-hidden="true" />
+              {t("seller.shopProfile")}
             </Link>
           </nav>
         </div>

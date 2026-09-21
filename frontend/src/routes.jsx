@@ -23,11 +23,19 @@ const LoginPage = lazy(() => import("./pages/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
 const PasswordResetPage = lazy(() => import("./pages/PasswordResetPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
+const NotificationsPage = lazy(() => import("./pages/NotificationsPage"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const SellerProductsPage = lazy(() => import("./pages/seller/SellerProductsPage"));
 const ProductFormPage = lazy(() => import("./pages/seller/ProductFormPage"));
+const SellerStatsPage = lazy(() => import("./pages/seller/SellerStatsPage"));
+const ShopProfilePage = lazy(() => import("./pages/seller/ShopProfilePage"));
 const AdminDashboardPage = lazy(() => import("./pages/admin/AdminDashboardPage"));
 const ModerationPage = lazy(() => import("./pages/admin/ModerationPage"));
+const AdminProductsPage = lazy(() => import("./pages/admin/AdminProductsPage"));
+const AdminReportsPage = lazy(() => import("./pages/admin/AdminReportsPage"));
+const AdminCatalogPage = lazy(() => import("./pages/admin/AdminCatalogPage"));
+const AdminUsersPage = lazy(() => import("./pages/admin/AdminUsersPage"));
+const AdminTelegramPage = lazy(() => import("./pages/admin/AdminTelegramPage"));
 
 export const routes = [
   {
@@ -92,11 +100,24 @@ export const routes = [
   { id: "password-reset", path: "password-reset", Component: PasswordResetPage },
   { id: "favorites", path: "favorites", Component: FavoritesPage, private: true },
   { id: "profile", path: "profile", Component: ProfilePage, private: true },
+  {
+    id: "notifications",
+    path: "notifications",
+    Component: NotificationsPage,
+    private: true,
+  },
   { id: "seller-products", path: "seller/products", Component: SellerProductsPage, private: true },
   { id: "seller-new", path: "seller/products/new", Component: ProductFormPage, private: true },
   { id: "seller-edit", path: "seller/products/:slug/edit", Component: ProductFormPage, private: true },
+  { id: "seller-stats", path: "seller/statistics", Component: SellerStatsPage, private: true },
+  { id: "seller-shop", path: "seller/shop", Component: ShopProfilePage, private: true },
   { id: "admin", path: "admin", Component: AdminDashboardPage, private: true, staff: true },
   { id: "admin-moderation", path: "admin/moderation", Component: ModerationPage, private: true, staff: true },
+  { id: "admin-products", path: "admin/products", Component: AdminProductsPage, private: true, staff: true },
+  { id: "admin-reports", path: "admin/reports", Component: AdminReportsPage, private: true, staff: true },
+  { id: "admin-catalog", path: "admin/catalog", Component: AdminCatalogPage, private: true, staff: true },
+  { id: "admin-users", path: "admin/users", Component: AdminUsersPage, private: true, staff: true },
+  { id: "admin-telegram", path: "admin/telegram", Component: AdminTelegramPage, private: true, staff: true },
   { id: "not-found", path: "*", Component: NotFoundPage },
 ];
 

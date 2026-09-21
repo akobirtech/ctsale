@@ -11,6 +11,9 @@ export const auth = {
   logout: () => api.post("/auth/logout/").then((r) => r.data),
   me: () => api.get("/auth/me/").then((r) => r.data),
   updateMe: (data) => api.patch("/auth/me/", data).then((r) => r.data),
+  shop: () => api.get("/auth/shop/").then((r) => r.data),
+  saveShop: (data) => api.put("/auth/shop/", data).then((r) => r.data),
+  deleteShop: () => api.delete("/auth/shop/").then((r) => r.data),
   changePassword: (data) => api.post("/auth/password/change/", data).then((r) => r.data),
   resetRequest: (data) => api.post("/auth/password/reset/", data).then((r) => r.data),
   resetConfirm: (data) => api.post("/auth/password/reset/confirm/", data).then((r) => r.data),
@@ -25,6 +28,21 @@ export const catalog = {
   popularBrands: () => api.get("/brands/popular/").then((r) => r.data),
   regions: (withDistricts) =>
     api.get("/regions/", { params: { with_districts: withDistricts } }).then((r) => r.data),
+
+  // Boshqaruv (ruxsat backendda tekshiriladi)
+  categories: (params) => api.get("/categories/", { params }).then((r) => r.data),
+  createCategory: (data) => api.post("/categories/", data).then((r) => r.data),
+  updateCategory: (id, data) => api.patch(`/categories/${id}/`, data).then((r) => r.data),
+  deleteCategory: (id) => api.delete(`/categories/${id}/`).then((r) => r.data),
+
+  createBrand: (data) => api.post("/brands/", data).then((r) => r.data),
+  updateBrand: (id, data) => api.patch(`/brands/${id}/`, data).then((r) => r.data),
+  deleteBrand: (id) => api.delete(`/brands/${id}/`).then((r) => r.data),
+
+  attributeList: (params) => api.get("/attributes/", { params }).then((r) => r.data),
+  createAttribute: (data) => api.post("/attributes/", data).then((r) => r.data),
+  updateAttribute: (id, data) => api.patch(`/attributes/${id}/`, data).then((r) => r.data),
+  deleteAttribute: (id) => api.delete(`/attributes/${id}/`).then((r) => r.data),
 };
 
 export const products = {
@@ -32,6 +50,7 @@ export const products = {
   detail: (slug, lang) => api.get(`/products/${slug}/`, { params: { lang } }).then((r) => r.data),
   search: (params) => api.get("/products/search/", { params }).then((r) => r.data),
   autocomplete: (q) => api.get("/products/autocomplete/", { params: { q } }).then((r) => r.data),
+  myStats: (params) => api.get("/products/my-stats/", { params }).then((r) => r.data),
   similar: (slug, lang) => api.get(`/products/${slug}/similar/`, { params: { lang } }).then((r) => r.data),
   featured: (params) => api.get("/products/featured/", { params }).then((r) => r.data),
   revealPhone: (slug) => api.post(`/products/${slug}/reveal-phone/`).then((r) => r.data),
@@ -127,6 +146,17 @@ export const admin = {
   setRoles: (id, roles) => api.post(`/admin/users/${id}/roles/`, { roles }).then((r) => r.data),
 
   audit: (params) => api.get("/admin/audit/", { params }).then((r) => r.data),
+
+  // E'lonlar jadvali (qoralama va o'chirilganlar ham ko'rinadi)
+  products: (params) => api.get("/admin/products/", { params }).then((r) => r.data),
+  featureProduct: (id, days) =>
+    api.post(`/admin/products/${id}/feature/`, { days }).then((r) => r.data),
+  forceStatus: (id, data) =>
+    api.post(`/admin/products/${id}/force-status/`, data).then((r) => r.data),
+  deleteProduct: (id) => api.delete(`/admin/products/${id}/`).then((r) => r.data),
+  restoreProduct: (id) => api.post(`/admin/products/${id}/restore/`).then((r) => r.data),
+  bulkProducts: (action, ids) =>
+    api.post("/admin/products/bulk/", { action, ids }).then((r) => r.data),
 
   telegramPosts: (params) => api.get("/admin/telegram/", { params }).then((r) => r.data),
   telegramSettings: () => api.get("/admin/telegram/settings/").then((r) => r.data),
