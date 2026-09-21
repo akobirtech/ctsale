@@ -26,6 +26,8 @@ urlpatterns = [
     path(API_V1, include("apps.mediafiles.urls")),
     path(API_V1, include("apps.products.urls")),
     path(API_V1, include("apps.moderation.urls")),
+    path(API_V1, include("apps.interactions.urls")),
+    path(API_V1, include("apps.notifications.urls")),
 ]
 
 # API hujjatlari

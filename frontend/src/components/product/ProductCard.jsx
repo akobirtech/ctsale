@@ -31,7 +31,7 @@ function ProductCard({ product, onToggleFavorite, priority = false }) {
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
             /* Birinchi ekrandagi rasmlar darhol, qolganlari kerak bo'lganda */
             loading={priority ? "eager" : "lazy"}
-            fetchPriority={priority ? "high" : "auto"}
+            fetchpriority={priority ? "high" : "auto"}
             decoding="async"
             width={400}
             height={300}

@@ -11,6 +11,7 @@ import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 
 import App from "./App";
+import { ROUTER_FUTURE } from "./routerConfig";
 import { DEFAULT_LANGUAGE, isSupported, langFromPath } from "./i18n";
 import { HeadCollector, renderHeadToString } from "./seo/Head";
 import { matchRoute, routes } from "./routes";
@@ -78,7 +79,7 @@ export async function render(url, context = {}) {
     <StrictMode>
       <HeadCollector store={headStore}>
         <RouteDataProvider value={{ data, routeId: route.id }}>
-          <StaticRouter location={url}>
+          <StaticRouter location={url} future={ROUTER_FUTURE}>
             <App lang={lang} ssrStatus={status} />
           </StaticRouter>
         </RouteDataProvider>

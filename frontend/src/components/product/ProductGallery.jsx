@@ -7,7 +7,7 @@ import { useI18n } from "../../i18n";
  * Rasm va video galereyasi + lightbox.
  *
  * Birinchi rasm `eager` yuklanadi va u LCP elementi bo'ladi —
- * shuning uchun unga `fetchPriority="high"` beriladi.
+ * shuning uchun unga `fetchpriority="high"` beriladi.
  */
 export default function ProductGallery({ images = [], videos = [], title }) {
   const { t } = useI18n();
@@ -73,7 +73,7 @@ export default function ProductGallery({ images = [], videos = [], title }) {
               alt={active.data.alt_text || title}
               className="h-full w-full object-contain"
               loading={index === 0 ? "eager" : "lazy"}
-              fetchPriority={index === 0 ? "high" : "auto"}
+              fetchpriority={index === 0 ? "high" : "auto"}
               decoding="async"
               width={active.data.width || 1200}
               height={active.data.height || 900}

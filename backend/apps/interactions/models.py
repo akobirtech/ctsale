@@ -99,6 +99,8 @@ class ReportReason(models.TextChoices):
     WRONG_INFO = "wrong_info", "Noto'g'ri ma'lumot"
     PROHIBITED = "prohibited", "Taqiqlangan mahsulot"
     DUPLICATE = "duplicate", "Takroriy e'lon"
+    SPAM = "spam", "Spam"
+    INAPPROPRIATE = "inappropriate", "Nomaqbul kontent"
     OTHER = "other", "Boshqa"
 
 

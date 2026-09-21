@@ -217,11 +217,11 @@ cloaking deb baholashi mumkin.
 
 ## Phase 11 — Favorites / Compare / Reports
 
-- [ ] Favorite modeli + API
-- [ ] favorites_count denormalizatsiya
-- [ ] Compare API
-- [ ] Report modeli (6 sabab) + API
-- [ ] Admin report ko'rish
+- [x] Favorite modeli + API
+- [x] favorites_count denormalizatsiya
+- [x] Compare API
+- [x] Report modeli (6 sabab) + API
+- [x] Admin report ko'rish
 - [ ] Testlar
 
 ---
@@ -230,10 +230,10 @@ cloaking deb baholashi mumkin.
 
 - [x] Notification modeli
 - [x] NotificationType enum va shablonlar
-- [ ] In-app API (list / unread count / mark read)
+- [x] In-app API (list / unread count / mark read)
 - [x] Telegram kanali orqali yuborish
 - [x] Email backend (dev: konsol)
-- [ ] User notification sozlamalari
+- [x] User notification sozlamalari
 - [ ] Testlar
 
 ---

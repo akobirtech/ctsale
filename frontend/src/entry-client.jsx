@@ -5,6 +5,7 @@ import { hydrateRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
+import { ROUTER_FUTURE } from "./routerConfig";
 import { DEFAULT_LANGUAGE, langFromPath } from "./i18n";
 import { HeadCollector } from "./seo/Head";
 import { RouteDataProvider } from "./store/routeData";
@@ -38,7 +39,7 @@ hydrateRoot(
   <StrictMode>
     <HeadCollector store={null}>
       <RouteDataProvider value={{ data: initial.data ?? null, routeId: initial.routeId ?? null }}>
-        <BrowserRouter>
+        <BrowserRouter future={ROUTER_FUTURE}>
           <App lang={lang} />
         </BrowserRouter>
       </RouteDataProvider>
