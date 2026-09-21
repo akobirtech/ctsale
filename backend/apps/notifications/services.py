@@ -10,6 +10,15 @@ from .models import Notification, NotificationChannel, NotificationPreference
 logger = logging.getLogger(__name__)
 
 
+def absolute_link(path):
+    """Ichki yo'lni to'liq, til prefiksli URL ga aylantiradi."""
+    if not path:
+        return settings.FRONTEND_URL
+    if path.startswith("http"):
+        return path
+    return f"{settings.FRONTEND_URL}/{settings.DEFAULT_LANGUAGE}{path}"
+
+
 def notify(recipient, notification_type, title, body="", link="", payload=None):
     """Bildirishnoma yaratadi va foydalanuvchi tanlagan kanallarga yuboradi.
 

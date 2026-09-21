@@ -297,7 +297,7 @@ def reject_product(product, actor, reason_code, comment="", internal_note=""):
         "product_rejected",
         title="E'loningiz rad etildi",
         body=f"«{product.title}»: {task.reject_message}",
-        link=f"/seller/products/{product.id}/edit",
+        link=f"/seller/products/{product.slug}/edit",
         payload={"product_id": str(product.id), "reason": reason_code},
     )
 

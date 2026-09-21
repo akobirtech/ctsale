@@ -114,3 +114,23 @@ export const compare = {
   items: (slugs, lang) =>
     api.get("/compare/items/", { params: { slugs: slugs.join(","), lang } }).then((r) => r.data),
 };
+
+export const admin = {
+  stats: () => api.get("/admin/dashboard/stats/").then((r) => r.data),
+  chart: (days) => api.get("/admin/dashboard/chart/", { params: { days } }).then((r) => r.data),
+
+  users: (params) => api.get("/admin/users/", { params }).then((r) => r.data),
+  roles: () => api.get("/admin/users/roles/").then((r) => r.data),
+  banUser: (id, data) => api.post(`/admin/users/${id}/ban/`, data).then((r) => r.data),
+  unbanUser: (id) => api.post(`/admin/users/${id}/unban/`).then((r) => r.data),
+  verifySeller: (id) => api.post(`/admin/users/${id}/verify-seller/`).then((r) => r.data),
+  setRoles: (id, roles) => api.post(`/admin/users/${id}/roles/`, { roles }).then((r) => r.data),
+
+  audit: (params) => api.get("/admin/audit/", { params }).then((r) => r.data),
+
+  telegramPosts: (params) => api.get("/admin/telegram/", { params }).then((r) => r.data),
+  telegramSettings: () => api.get("/admin/telegram/settings/").then((r) => r.data),
+  updateTelegramSettings: (data) =>
+    api.patch("/admin/telegram/settings/", data).then((r) => r.data),
+  republish: (id) => api.post(`/admin/telegram/${id}/republish/`).then((r) => r.data),
+};

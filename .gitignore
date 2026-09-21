@@ -44,3 +44,4 @@ desktop.ini
 
 # SSR build natijalari
 /frontend/dist/
+/frontend/logs-ssr.log

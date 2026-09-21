@@ -28,6 +28,7 @@ urlpatterns = [
     path(API_V1, include("apps.moderation.urls")),
     path(API_V1, include("apps.interactions.urls")),
     path(API_V1, include("apps.notifications.urls")),
+    path(API_V1, include("apps.adminapi.urls")),
 ]
 
 # API hujjatlari

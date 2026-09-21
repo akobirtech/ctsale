@@ -3,7 +3,7 @@
 > Doimiy progress tracker. Bajarilgan task hech qachon o'chirilmaydi, faqat `[x]` qilinadi.
 > Oxirgi yangilanish: 2026-09-20
 
-**Progress:** Phase 23 / 30 (sotuvchi kabineti tayyor; keyingisi admin panel)
+**Progress:** Phase 24 / 30 (admin panel tayyor; qolgani: testlar, hujjat, deploy)
 
 ---
 
@@ -265,22 +265,22 @@ cloaking deb baholashi mumkin.
 - [x] PhoneReveal hisoblagichi
 - [x] AuditLog modeli
 - [x] Audit signal/mixin
-- [ ] Dashboard statistika endpointi
+- [x] Dashboard statistika endpointi
 - [ ] Testlar
 
 ---
 
 ## Phase 15 — Admin API
 
-- [ ] Admin users endpoint
+- [x] Admin users endpoint
 - [ ] Admin products endpoint
-- [ ] Admin moderation endpoint
-- [ ] Admin reports endpoint
-- [ ] Admin telegram endpoint
-- [ ] Admin audit endpoint
-- [ ] Admin stats endpoint
-- [ ] Bulk actions
-- [ ] Permission testlari
+- [x] Admin moderation endpoint
+- [x] Admin reports endpoint
+- [x] Admin telegram endpoint
+- [x] Admin audit endpoint
+- [x] Admin stats endpoint
+- [x] Bulk actions
+- [x] Permission testlari
 
 ---
 
@@ -411,18 +411,18 @@ cloaking deb baholashi mumkin.
 
 ## Phase 24 — Admin panel
 
-- [ ] Admin layout + sidebar
-- [ ] Dashboard + chartlar
-- [ ] Moderatsiya navbati
+- [x] Admin layout + sidebar
+- [x] Dashboard + chartlar
+- [x] Moderatsiya navbati
 - [ ] Mahsulotlar jadvali (filtr/qidiruv/bulk)
-- [ ] Foydalanuvchilar
-- [ ] Rollar va ruxsatlar
+- [x] Foydalanuvchilar
+- [x] Rollar va ruxsatlar
 - [ ] Kategoriya CRUD
 - [ ] Atribut CRUD
 - [ ] Brend CRUD
-- [ ] Telegram sozlamalari + postlar
+- [x] Telegram sozlamalari + postlar
 - [ ] Shikoyatlar
-- [ ] Audit log
+- [x] Audit log
 - [x] Confirmation modal + toast
 
 ---
@@ -459,7 +459,7 @@ cloaking deb baholashi mumkin.
 
 - [ ] pytest konfiguratsiyasi
 - [ ] Auth testlari
-- [ ] Permission testlari
+- [x] Permission testlari
 - [ ] Product CRUD testlari
 - [ ] Media testlari
 - [ ] Search/filter testlari
