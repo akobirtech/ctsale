@@ -15,7 +15,7 @@ venv/Scripts/python -m pytest -x --lf         # birinchi xatoda to'xta, oxirgi y
 
 Linux/macOS'da `venv/bin/python`.
 
-**Hozirgi holat: 430 test, 87% qamrov, ~18 soniya.**
+**Hozirgi holat: backend 457 test (87% qamrov, ~22 s), frontend 61 test.**
 
 ---
 
@@ -201,12 +201,29 @@ komandalari, `apps.py`.
 
 ```bash
 cd frontend
-npm test            # Vitest
-npm run build       # eng muhim tekshiruv: build yiqilmasligi
+npm test            # Vitest — 61 test
+npm run build       # build yiqilmasligi ham tekshiruv
 ```
 
-Frontend tomonda hozircha build va tiplar tekshiruvi asosiy himoya.
-Komponent testlari Phase 27 ning qolgan qismida qo'shiladi.
+```
+src/
+├── i18n/i18n.test.js                 13  til prefiksi, lug'at to'liqligi
+├── utils/format.test.js              24  narx, sana, telefon, sonlar
+├── components/ui/Modal.test.jsx       8  Escape, fokus, sahifa qulfi
+├── components/layout/
+│   └── CategoryMenu.test.jsx          9  mega-menyu va akkordeon
+└── components/product/
+    └── ReportModal.test.jsx           7  sabablar, validatsiya, xatolar
+```
+
+Lug'at testi alohida qimmatli: ruscha tarjimada bitta kalit unutilsa
+sahifada o'zbekcha matn chiqadi va buni ko'z bilan payqash qiyin.
+Test uchta tilda kalitlar to'plami va `{param}` o'rin egallovchilari
+bir xilligini tekshiradi.
+
+**Vizual tekshiruv testlar qamramaydi.** jsdom joylashuvni hisoblamaydi,
+shuning uchun haqiqiy brauzerda 320 / 768 / 1280 px da ko'z bilan
+ko'rish hali ham kerak.
 
 ---
 
@@ -216,7 +233,7 @@ Komponent testlari Phase 27 ning qolgan qismida qo'shiladi.
 cd backend
 venv/Scripts/python -m pytest --cov --cov-fail-under=80 -q
 cd ../frontend
-npm ci && npm run build
+npm ci && npm test && npm run build
 ```
 
 `--cov-fail-under=80` qamrov pasayib ketsa build'ni yiqitadi.

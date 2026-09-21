@@ -132,7 +132,7 @@ export default function RegisterPage() {
                   autoFocus
                 />
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid gap-3 sm:grid-cols-2">
                   <Field
                     label={t("auth.firstName")}
                     autoComplete="given-name"

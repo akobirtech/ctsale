@@ -339,6 +339,20 @@ cloaking deb baholashi mumkin.
 
 ---
 
+## Responsive haqida
+
+Uchta "Responsive tekshiruv" bandi **kod auditi** bilan yopildi:
+mobil-first sinflar, 16px yon bo'shliq, 44px bosish maydoni,
+`env(safe-area-inset-bottom)`, jadvallarda `overflow-x-auto`,
+mobilda majburiy ustunlar yo'qligi tekshirildi. Topilgan yagona
+kamchilik tuzatildi: ro'yxatdan o'tishda ism/familiya 320px ekranda
+yonma-yon turardi.
+
+**Brauzerda ko'z bilan ko'rish hali kerak** — jsdom joylashuvni
+hisoblamaydi. Tekshirish nuqtalari: 320 / 375 / 768 / 1280 px.
+
+---
+
 ## Phase 19 — Home page
 
 - [x] Hero + qidiruv
@@ -349,7 +363,7 @@ cloaking deb baholashi mumkin.
 - [x] Ishlatilgan mahsulotlar
 - [x] CTA bloki
 - [x] Footer
-- [ ] Responsive tekshiruv
+- [x] Responsive tekshiruv (kod auditi; vizual tekshiruv qolgan)
 
 ---
 
@@ -362,7 +376,7 @@ cloaking deb baholashi mumkin.
 - [x] Skeleton loading
 - [x] Empty state
 - [x] Mobil filter drawer
-- [ ] Responsive tekshiruv
+- [x] Responsive tekshiruv (kod auditi; vizual tekshiruv qolgan)
 
 ---
 
@@ -379,7 +393,7 @@ cloaking deb baholashi mumkin.
 - [x] Report modal
 - [x] O'xshash mahsulotlar
 - [x] Ko'rishlar / sevimlilar
-- [ ] Responsive tekshiruv
+- [x] Responsive tekshiruv (kod auditi; vizual tekshiruv qolgan)
 
 ---
 
@@ -420,7 +434,7 @@ cloaking deb baholashi mumkin.
 - [x] Kategoriya CRUD
 - [x] Atribut CRUD
 - [x] Brend CRUD
-- [x] Telegram sozlamalari + postlar
+- [x] Telegram sozlamalari + postlar (API va sahifa)
 - [x] Shikoyatlar
 - [x] Audit log
 - [x] Confirmation modal + toast
@@ -465,7 +479,7 @@ cloaking deb baholashi mumkin.
 - [x] Search/filter testlari
 - [x] Moderation testlari
 - [x] Telegram testlari
-- [x] Frontend Vitest testlari
+- [x] Frontend Vitest testlari (61 ta: i18n, format, Modal, CategoryMenu, ReportModal)
 - [x] TESTING.md
 
 ---

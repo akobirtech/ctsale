@@ -15,6 +15,7 @@ import { useI18n } from "../../i18n";
 export default function Modal({ open, onClose, title, description, children, footer, size = "md" }) {
   const { t } = useI18n();
   const panelRef = useRef(null);
+  const bodyRef = useRef(null);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -27,12 +28,13 @@ export default function Modal({ open, onClose, title, description, children, foo
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    // Fokus oyna ichidagi birinchi elementga o'tadi, aks holda
-    // klaviatura orqa fonda qolib ketadi.
-    const focusable = panelRef.current?.querySelector(
-      "input, select, textarea, button, [href]"
-    );
-    focusable?.focus();
+    // Fokus mazmundagi birinchi maydonga o'tadi — aks holda
+    // klaviatura orqa fonda qolib ketadi. Yopish tugmasi zaxira:
+    // unga darhol tushish "oynani yoping" degandek ko'rinadi.
+    const selector = "input, select, textarea, button, [href]";
+    const target =
+      bodyRef.current?.querySelector(selector) || panelRef.current?.querySelector(selector);
+    target?.focus();
 
     return () => {
       document.removeEventListener("keydown", handleKey);
@@ -80,7 +82,9 @@ export default function Modal({ open, onClose, title, description, children, foo
           </button>
         </div>
 
-        <div className="mt-4">{children}</div>
+        <div className="mt-4" ref={bodyRef}>
+          {children}
+        </div>
 
         {footer ? <div className="mt-5 flex gap-2">{footer}</div> : null}
       </div>
