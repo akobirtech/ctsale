@@ -21,6 +21,7 @@ import ProductPage from "./pages/ProductPage";
 // Qolganlari faqat kerak bo'lganda yuklanadi.
 const LoginPage = lazy(() => import("./pages/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/RegisterPage"));
+const PasswordResetPage = lazy(() => import("./pages/PasswordResetPage"));
 const FavoritesPage = lazy(() => import("./pages/FavoritesPage"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const SellerProductsPage = lazy(() => import("./pages/seller/SellerProductsPage"));
@@ -84,6 +85,7 @@ export const routes = [
   },
   { id: "login", path: "login", Component: LoginPage },
   { id: "register", path: "register", Component: RegisterPage },
+  { id: "password-reset", path: "password-reset", Component: PasswordResetPage },
   { id: "favorites", path: "favorites", Component: FavoritesPage, private: true },
   { id: "profile", path: "profile", Component: ProfilePage, private: true },
   { id: "seller-products", path: "seller/products", Component: SellerProductsPage, private: true },

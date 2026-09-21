@@ -86,3 +86,31 @@ export const moderation = {
   reject: (id, data) => api.post(`/moderation/${id}/reject/`, data).then((r) => r.data),
   bulkApprove: (ids) => api.post("/moderation/bulk-approve/", { task_ids: ids }).then((r) => r.data),
 };
+
+export const favorites = {
+  list: (params) => api.get("/favorites/", { params }).then((r) => r.data),
+  toggle: (slug) => api.post("/favorites/toggle/", { slug }).then((r) => r.data),
+  ids: () => api.get("/favorites/ids/").then((r) => r.data),
+};
+
+export const reports = {
+  reasons: () => api.get("/reports/reasons/").then((r) => r.data),
+  create: (data) => api.post("/reports/", data).then((r) => r.data),
+  list: (params) => api.get("/reports/", { params }).then((r) => r.data),
+  resolve: (id, data) => api.post(`/reports/${id}/resolve/`, data).then((r) => r.data),
+};
+
+export const notifications = {
+  list: (params) => api.get("/notifications/", { params }).then((r) => r.data),
+  unreadCount: () => api.get("/notifications/unread-count/").then((r) => r.data),
+  markRead: (id) => api.post(`/notifications/${id}/read/`).then((r) => r.data),
+  markAllRead: () => api.post("/notifications/read-all/").then((r) => r.data),
+  preferences: () => api.get("/notifications/preferences/").then((r) => r.data),
+  updatePreferences: (data) =>
+    api.patch("/notifications/preferences/", data).then((r) => r.data),
+};
+
+export const compare = {
+  items: (slugs, lang) =>
+    api.get("/compare/items/", { params: { slugs: slugs.join(","), lang } }).then((r) => r.data),
+};

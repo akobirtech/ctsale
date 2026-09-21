@@ -3,7 +3,7 @@
 > Doimiy progress tracker. Bajarilgan task hech qachon o'chirilmaydi, faqat `[x]` qilinadi.
 > Oxirgi yangilanish: 2026-09-20
 
-**Progress:** Phase 21 / 30 (SSR frontend ishlayapti: bosh sahifa, katalog, mahsulot sahifasi)
+**Progress:** Phase 22 / 30 (auth sahifalari tayyor; keyingisi sotuvchi kabineti)
 
 ---
 
@@ -329,7 +329,7 @@ cloaking deb baholashi mumkin.
 - [x] Pagination
 - [x] Price
 - [x] Badge
-- [ ] Modal
+- [x] Modal
 - [x] Toast
 - [x] LoadingSkeleton
 - [x] EmptyState
@@ -385,14 +385,14 @@ cloaking deb baholashi mumkin.
 
 ## Phase 22 — Auth pages & profile
 
-- [ ] Register sahifasi + OTP
-- [ ] Login sahifasi
-- [ ] Parolni tiklash
-- [ ] Profil sahifasi
+- [x] Register sahifasi + OTP
+- [x] Login sahifasi
+- [x] Parolni tiklash
+- [x] Profil sahifasi
 - [ ] Avatar yuklash
-- [ ] Sevimlilar sahifasi
+- [x] Sevimlilar sahifasi
 - [ ] Bildirishnomalar sahifasi
-- [ ] Sozlamalar
+- [x] Sozlamalar
 
 ---
 
