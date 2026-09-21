@@ -19,6 +19,8 @@ API_V1 = "api/v1/"
 urlpatterns = [
     # SEO fayllari sayt ildizida bo'lishi shart (til prefiksisiz)
     path("", include("apps.seo.urls")),
+    # Telegram webhook sayt ildizida (Telegram serveri uchun)
+    path("", include("apps.telegrambot.urls")),
     path("django-admin/", admin.site.urls),
     path(API_V1, include("apps.core.urls")),
     path(f"{API_V1}auth/", include("apps.accounts.urls")),

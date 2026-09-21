@@ -321,6 +321,76 @@ bildirishnoma baribir ko'rinadi.
 
 ---
 
+## Bot bilan suhbat
+
+Kanal e'lonlarni **tarqatadi**, bot esa ularni **topishga** yordam
+beradi. Ikkalasi bitta token bilan ishlaydi.
+
+### Buyruqlar
+
+| Buyruq | Nima qiladi |
+|---|---|
+| `/start` | Salomlashadi va tugmalarni ko'rsatadi |
+| `/start <kod>` | Sayt hisobini ulaydi (deep link) |
+| `/search <so'z>` yoki oddiy matn | E'lonlarni qidiradi |
+| `/my` | E'lonlaringiz va ularning holati |
+| `/link` | Hisobni ulash yo'riqnomasi |
+| `/stop` | Bildirishnomalarni to'xtatadi |
+| `/help` | Yordam |
+
+Qidiruv saytdagi bilan **bir xil funksiyani** ishlatadi
+(`apps/products/search.py`): avval full-text, natija bo'lmasa trigram.
+Mantiq ikki joyda takrorlanmaydi.
+
+Natijalar 5 tadan chiqadi, qolgani inline tugmalar orqali.
+`callback_data` 64 baytga qisqartiriladi — Telegram chegarasi shunday.
+
+Qoralama va rad etilgan e'lonlar qidiruvda **ko'rinmaydi**: bot
+`Product.objects.public()` dan foydalanadi. `/my` esa aksincha,
+sotuvchining barcha e'lonlarini holati bilan ko'rsatadi.
+
+### Hisobni ulash
+
+```
+Sayt profili --> POST /api/v1/telegram/link-token/
+             --> https://t.me/<bot>?start=<kod>
+             --> bot kodni tekshiradi --> User.telegram_id yoziladi
+```
+
+Kod bir martalik va 30 daqiqada eskiradi. U `TelegramLinkToken`
+jadvalida turadi, `TelegramBotUser` da emas — bot bilan hali
+gaplashmagan odam ham havolani ola bilishi kerak.
+
+Ulangandan keyin bildirishnomalar Telegramga ham boradi.
+
+### Ishga tushirish
+
+Development (webhook localhost'ga kelmaydi):
+
+```bash
+cd backend
+venv/Scripts/python manage.py run_bot
+```
+
+Production:
+
+```bash
+venv/Scripts/python manage.py run_bot --set-webhook https://domain.uz/telegram/webhook/
+```
+
+`TELEGRAM_WEBHOOK_SECRET` bo'sh bo'lsa buyruq ham, endpoint ham ishni
+rad etadi: sirsiz webhook'ga istalgan odam bot nomidan update yubora
+olardi. Sir `X-Telegram-Bot-Api-Secret-Token` headerida tekshiriladi.
+
+Webhook `/telegram/webhook/` da — `/api/v1/` ostida emas, chunki u
+Telegram serveri uchun: DRF autentifikatsiyasi ham, versiyalash ham
+unga tegishli emas.
+
+`run_bot` long polling'dan oldin webhook'ni o'chiradi — Telegram
+ikkalasini bir vaqtda bermaydi.
+
+---
+
 ## Testlar
 
 ```bash
@@ -328,10 +398,18 @@ cd backend
 venv/Scripts/python -m pytest tests/test_telegram.py -v
 ```
 
-31 test: shablon render, HTML ekranlash, usul tanlash (photo /
-mediaGroup / video), mock rejim, xatolarni qayd etish, sotilgan
-postni yangilash, shablon validatsiyasi, tokenning javobga
-chiqmasligi.
+```bash
+venv/Scripts/python -m pytest tests/test_bot_handlers.py -v
+```
+
+`test_telegram.py` — 31 test: shablon render, HTML ekranlash, usul
+tanlash (photo / mediaGroup / video), mock rejim, xatolarni qayd
+etish, sotilgan postni yangilash, shablon validatsiyasi, tokenning
+javobga chiqmasligi.
+
+`test_bot_handlers.py` — 39 test: buyruqlar, qidiruv va sahifalash,
+`/my`, hisobni ulash (bir martalik va eskiruvchi kod), bloklash,
+webhook siri. Tarmoq yo'q: soxta klient yuborilgan xabarlarni yig'adi.
 
 Testlar **hech qachon tarmoqqa chiqmaydi** — `FakeClient` chaqiruvlarni
 yozib boradi va tayyor javob qaytaradi.

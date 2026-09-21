@@ -23,6 +23,11 @@ MAX_MESSAGE_LENGTH = 4096
 MAX_MEDIA_GROUP = 10
 
 
+# Botga keladigan hodisalar. Ro'yxat cheklangan: kanal postlariga
+# yozilgan izohlar kabi keraksiz oqim bot jarayonini band qilmasin.
+ALLOWED_UPDATES = ["message", "callback_query", "my_chat_member"]
+
+
 class TelegramError(Exception):
     """Telegram API xato qaytardi yoki javob bermadi."""
 
@@ -153,7 +158,7 @@ class TelegramClient:
         return self.call("getChat", {"chat_id": chat_id})
 
     def set_webhook(self, url, secret_token=""):
-        payload = {"url": url, "allowed_updates": ["message", "callback_query"]}
+        payload = {"url": url, "allowed_updates": ALLOWED_UPDATES}
         if secret_token:
             payload["secret_token"] = secret_token
         return self.call("setWebhook", payload)
@@ -162,7 +167,7 @@ class TelegramClient:
         return self.call("deleteWebhook", {"drop_pending_updates": False})
 
     def get_updates(self, offset=None, timeout=25):
-        payload = {"timeout": timeout, "allowed_updates": ["message", "callback_query"]}
+        payload = {"timeout": timeout, "allowed_updates": ALLOWED_UPDATES}
         if offset is not None:
             payload["offset"] = offset
         return self.call("getUpdates", payload)

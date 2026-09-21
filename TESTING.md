@@ -15,7 +15,7 @@ venv/Scripts/python -m pytest -x --lf         # birinchi xatoda to'xta, oxirgi y
 
 Linux/macOS'da `venv/bin/python`.
 
-**Hozirgi holat: 390 test, 87% qamrov, ~16 soniya.**
+**Hozirgi holat: 430 test, 87% qamrov, ~18 soniya.**
 
 ---
 
@@ -66,6 +66,7 @@ backend/tests/
 ├── test_search_filters.py            35  full-text, trigram, JSONB filtr, facet
 ├── test_moderation.py                24  navbat, approve/reject, bulk
 ├── test_telegram.py                  31  shablon, usul tanlash, mock, xatolar
+├── test_bot_handlers.py              39  buyruqlar, qidiruv, hisob ulash, webhook
 ├── test_interactions_seo.py          38  sevimli, shikoyat, JSON-LD, sitemap
 ├── test_admin_api.py                 29  statistika, ban, audit, Telegram admin
 ├── test_notifications_seo_services.py 25 kanallar, hreflang, schema

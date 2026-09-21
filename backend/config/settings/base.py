@@ -308,6 +308,8 @@ PRODUCT_VIEW_TTL_HOURS = 24
 TELEGRAM_BOT_TOKEN = env("TELEGRAM_BOT_TOKEN", default="")
 TELEGRAM_CHANNEL_ID = env("TELEGRAM_CHANNEL_ID", default="")
 TELEGRAM_WEBHOOK_SECRET = env("TELEGRAM_WEBHOOK_SECRET", default="")
+# Bo'sh qoldirilsa botning o'zidan (getMe) aniqlanadi.
+TELEGRAM_BOT_USERNAME = env("TELEGRAM_BOT_USERNAME", default="")
 # Token yoki kanal bo'lmasa avtomatik mock rejimga o'tadi (telegrambot/client.py).
 TELEGRAM_MOCK = env.bool("TELEGRAM_MOCK", default=False)
 TELEGRAM_API_TIMEOUT = 20

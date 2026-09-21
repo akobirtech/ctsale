@@ -177,3 +177,28 @@ class TelegramBotUser(TimeStampedModel):
 
     def __str__(self):
         return self.username or str(self.telegram_id)
+
+
+class TelegramLinkToken(TimeStampedModel):
+    """Sayt hisobini botga ulash uchun bir martalik kod.
+
+    Alohida jadval: bot bilan hali gaplashmagan foydalanuvchi ham
+    havolani ola bilishi kerak, ya'ni kodni `TelegramBotUser` da
+    saqlab bo'lmaydi.
+    """
+
+    user = models.OneToOneField(
+        "accounts.User",
+        verbose_name="foydalanuvchi",
+        on_delete=models.CASCADE,
+        related_name="telegram_link_token",
+    )
+    token = models.CharField("kod", max_length=64, unique=True, db_index=True)
+
+    class Meta:
+        verbose_name = "Telegram bog'lash kodi"
+        verbose_name_plural = "Telegram bog'lash kodlari"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.user_id} uchun kod"

@@ -15,7 +15,7 @@ from .models import TelegramPost, TelegramPostStatus, TelegramSettings
 logger = logging.getLogger(__name__)
 
 
-def _escape(text):
+def escape_html(text):
     """Telegram HTML rejimi uchun ekranlash.
 
     Telegram faqat `<`, `>` va `&` belgilarini talab qiladi.
@@ -24,6 +24,10 @@ def _escape(text):
     o'qilishini buzadi.
     """
     return html.escape(str(text or ""), quote=False)
+
+
+# Modul ichida qisqa nom bilan ishlatiladi.
+_escape = escape_html
 
 
 def resolve_channel_id(config=None):
@@ -329,3 +333,30 @@ def send_direct_message(telegram_id, text):
     except TelegramError as exc:
         logger.info("Botdan xabar yuborib bo'lmadi (%s): %s", telegram_id, exc)
         return False
+
+
+# Bot username'i o'zgarmaydi, lekin uni `.env` ga qo'lda yozdirish
+# yana bitta xato manbai bo'lardi — botning o'zidan so'raymiz.
+BOT_USERNAME_CACHE_KEY = "telegram:bot_username"
+BOT_USERNAME_TTL = 86400
+
+
+def bot_username(client=None):
+    """`t.me/<username>` havolalari uchun. Aniqlab bo'lmasa bo'sh satr."""
+    from django.core.cache import cache
+
+    cached = cache.get(BOT_USERNAME_CACHE_KEY)
+    if cached is not None:
+        return cached
+
+    username = settings.TELEGRAM_BOT_USERNAME
+    if not username:
+        try:
+            info = (client or get_client()).get_me() or {}
+            username = (info.get("result") or {}).get("username", "")
+        except TelegramError as exc:
+            logger.info("Bot ma'lumotini olib bo'lmadi: %s", exc)
+            username = ""
+
+    cache.set(BOT_USERNAME_CACHE_KEY, username, BOT_USERNAME_TTL)
+    return username

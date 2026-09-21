@@ -10,7 +10,6 @@ from decimal import Decimal
 
 from django.conf import settings
 from django.core.cache import cache
-from django.contrib.postgres.search import SearchQuery, SearchRank, TrigramSimilarity
 from django.db.models import F, Q
 from django.utils import timezone
 from rest_framework import status, viewsets
@@ -35,6 +34,7 @@ from .filters import (
     build_facets,
 )
 from .models import Condition, Product, ProductStatus, PUBLIC_STATUSES, SearchQueryLog
+from .search import MIN_SEARCH_LENGTH, search_products, search_suggestions
 from .serializers import (
     ProductCardSerializer,
     ProductDetailSerializer,
@@ -59,7 +59,6 @@ class ProductGone(BusinessError):
 # Bir xil IP/foydalanuvchi shu muddat ichida ko'rishni takrorlasa
 # hisoblanmaydi.
 VIEW_DEDUPE_HOURS = 24
-MIN_SEARCH_LENGTH = 2
 # Bosh sahifa bloklari sekundiga bir necha marta so'raladi, lekin
 # tarkibi daqiqalab o'zgarmaydi.
 FEATURED_CACHE_SECONDS = 60
@@ -406,7 +405,7 @@ class ProductViewSet(viewsets.ModelViewSet):
             )
 
         queryset = self.filter_queryset(self.get_queryset())
-        queryset = self._apply_search(queryset, query)
+        queryset = search_products(queryset, query)
 
         category = None
         category_slug = request.query_params.get("category")
@@ -433,40 +432,8 @@ class ProductViewSet(viewsets.ModelViewSet):
         )
 
         if total == 0:
-            response.data["suggestions"] = self._suggestions(query)
+            response.data["suggestions"] = search_suggestions(query)
         return response
-
-    def _apply_search(self, queryset, query):
-        """Avval full-text, natija bo'lmasa trigram (opechatka uchun)."""
-        search_query = SearchQuery(query, config="simple")
-        ranked = (
-            queryset.filter(search_vector=search_query)
-            .annotate(rank=SearchRank(F("search_vector"), search_query))
-            .order_by("-is_featured", "-rank", "-published_at")
-        )
-        if ranked.exists():
-            return ranked
-
-        return (
-            queryset.annotate(similarity=TrigramSimilarity("title", query))
-            .filter(
-                Q(similarity__gt=0.2)
-                | Q(title__icontains=query)
-                | Q(model_name__icontains=query)
-            )
-            .order_by("-is_featured", "-similarity", "-published_at")
-        )
-
-    def _suggestions(self, query):
-        """Natija bo'lmaganda yaqin so'rovlarni taklif qilamiz."""
-        similar = (
-            Product.objects.public()
-            .annotate(similarity=TrigramSimilarity("title", query))
-            .filter(similarity__gt=0.15)
-            .order_by("-similarity")
-            .values_list("title", flat=True)[:5]
-        )
-        return list(similar)
 
     @action(detail=False, methods=["get"])
     def autocomplete(self, request):

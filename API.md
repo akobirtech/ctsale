@@ -499,6 +499,20 @@ tashqi kanal uzilsa ham xabar saytda ko'rinadi.
 | GET PATCH | `telegram/settings/` | `telegram.manage` |
 | POST | `telegram/{id}/republish/` | `telegram.manage` |
 
+Botga ulanish havolasi (admin emas, oddiy foydalanuvchi uchun):
+
+```http
+POST /api/v1/telegram/link-token/
+```
+
+```json
+{ "token": "...", "url": "https://t.me/bot?start=...", "expires_in_minutes": 30 }
+```
+
+Kod bir martalik. Webhook `/telegram/webhook/` da — u Telegram
+serveri uchun, shuning uchun `/api/v1/` ostida emas va
+`X-Telegram-Bot-Api-Secret-Token` bilan himoyalangan.
+
 Bloklashda sabab majburiy. Superuser'ni va o'zini bloklash mumkin emas.
 Telegram sozlamalari javobida **bot tokeni hech qachon bo'lmaydi** —
 faqat `is_configured` bayrog'i.

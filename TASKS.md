@@ -252,7 +252,7 @@ cloaking deb baholashi mumkin.
 - [x] Mock rejim (token yo'q bo'lsa)
 - [x] HAQIQIY kanalga post yuborildi va tekshirildi (t.me/notbuk_sot/4)
 - [x] Ochiq bo'lmagan URL (localhost) uchun chidamli fallback
-- [ ] Bot handlerlari (/start, qidiruv, mening e'lonlarim)
+- [x] Bot handlerlari (/start, qidiruv, mening e'lonlarim)
 - [ ] Admin panelda qayta jo'natish
 - [x] TELEGRAM.md hujjati
 - [x] Telegram testlari (mock)
