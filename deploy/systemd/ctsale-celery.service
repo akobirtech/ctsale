@@ -1,0 +1,26 @@
+[Unit]
+Description=CT Sale — Celery worker
+After=network.target redis-server.service postgresql.service
+Requires=redis-server.service
+
+[Service]
+Type=simple
+User=ctsale
+Group=ctsale
+WorkingDirectory=/opt/ctsale/app/backend
+Environment="DJANGO_SETTINGS_MODULE=config.settings.prod"
+ExecStart=/opt/ctsale/app/backend/venv/bin/celery -A config worker \
+    --loglevel=info \
+    --concurrency=2 \
+    --max-tasks-per-child=100
+Restart=always
+RestartSec=10
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/ctsale/app/backend/media /opt/ctsale/app/backend/logs
+
+[Install]
+WantedBy=multi-user.target

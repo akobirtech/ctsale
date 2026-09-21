@@ -1,0 +1,32 @@
+[Unit]
+Description=CT Sale — Django (Gunicorn)
+After=network.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+Type=notify
+User=ctsale
+Group=ctsale
+WorkingDirectory=/opt/ctsale/app/backend
+Environment="DJANGO_SETTINGS_MODULE=config.settings.prod"
+ExecStart=/opt/ctsale/app/backend/venv/bin/gunicorn config.wsgi:application \
+    --bind 127.0.0.1:8000 \
+    --workers 3 \
+    --threads 2 \
+    --timeout 60 \
+    --graceful-timeout 30 \
+    --access-logfile - \
+    --error-logfile -
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=always
+RestartSec=5
+
+# Xavfsizlik: jarayon faqat kerakli joylarga yoza olsin
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/ctsale/app/backend/media /opt/ctsale/app/backend/logs
+
+[Install]
+WantedBy=multi-user.target

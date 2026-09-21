@@ -3,7 +3,7 @@
 > Doimiy progress tracker. Bajarilgan task hech qachon o'chirilmaydi, faqat `[x]` qilinadi.
 > Oxirgi yangilanish: 2026-09-20
 
-**Progress:** Phase 27 / 30 (319 test, 87% qamrov; qolgani: performance, deploy, final QA)
+**Progress:** Phase 29 / 30 (hujjatlar va deployment tayyor; qolgani: performance, final QA, Gemini AI)
 
 ---
 
@@ -91,7 +91,7 @@ cloaking deb baholashi mumkin.
 - [x] Audit maydonlari (created_by / updated_by)
 - [x] Soft delete manager
 - [x] Birinchi migration yaratildi va qo'llandi
-- [ ] DATABASE.md yozildi
+- [x] DATABASE.md yozildi
 
 ---
 
@@ -254,7 +254,7 @@ cloaking deb baholashi mumkin.
 - [x] Ochiq bo'lmagan URL (localhost) uchun chidamli fallback
 - [ ] Bot handlerlari (/start, qidiruv, mening e'lonlarim)
 - [ ] Admin panelda qayta jo'natish
-- [ ] TELEGRAM.md hujjati
+- [x] TELEGRAM.md hujjati
 - [x] Telegram testlari (mock)
 
 ---
@@ -451,7 +451,7 @@ cloaking deb baholashi mumkin.
 - [ ] JWT xavfsizligi
 - [ ] Secrets menejment
 - [ ] IDOR / privilege escalation tekshiruvi
-- [ ] SECURITY.md
+- [x] SECURITY.md
 
 ---
 
@@ -483,13 +483,13 @@ cloaking deb baholashi mumkin.
 
 ## Phase 29 — Deployment
 
-- [ ] docker-compose.yml
-- [ ] Dockerfile (backend / frontend)
-- [ ] nginx konfiguratsiyasi
-- [ ] gunicorn + systemd
-- [ ] celery + systemd
-- [ ] DEPLOYMENT.md
-- [ ] .env.example to'liq
+- [x] docker-compose.yml
+- [x] Dockerfile (backend / frontend)
+- [x] nginx konfiguratsiyasi
+- [x] gunicorn + systemd
+- [x] celery + systemd
+- [x] DEPLOYMENT.md
+- [x] .env.example to'liq
 
 ---
 

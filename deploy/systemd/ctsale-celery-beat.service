@@ -1,0 +1,25 @@
+[Unit]
+Description=CT Sale — Celery beat (rejalashtirilgan vazifalar)
+After=network.target redis-server.service
+Requires=redis-server.service
+
+[Service]
+Type=simple
+User=ctsale
+Group=ctsale
+WorkingDirectory=/opt/ctsale/app/backend
+Environment="DJANGO_SETTINGS_MODULE=config.settings.prod"
+ExecStart=/opt/ctsale/app/backend/venv/bin/celery -A config beat \
+    --loglevel=info \
+    --schedule=/opt/ctsale/app/backend/logs/celerybeat-schedule
+Restart=always
+RestartSec=10
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/ctsale/app/backend/logs
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,23 @@
+[Unit]
+Description=CT Sale — SSR server (Node)
+After=network.target ctsale-backend.service
+
+[Service]
+Type=simple
+User=ctsale
+Group=ctsale
+WorkingDirectory=/opt/ctsale/app/frontend
+Environment="NODE_ENV=production"
+Environment="PORT=5173"
+Environment="API_URL=http://127.0.0.1:8000"
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=5
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
