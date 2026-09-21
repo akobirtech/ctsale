@@ -1,6 +1,0 @@
-C:\Users\USER\Desktop\items sell\ARCHITECTURE.md
-C:\Users\USER\Desktop\items sell\ROADMAP.md
-C:\Users\USER\Desktop\items sell\TASKS.md
-C:\Users\USER\Desktop\items sell\backend\requirements.txt
-C:\Users\USER\Desktop\items sell\frontend\index.html
-C:\Users\USER\Desktop\items sell\frontend\public\favicon.svg

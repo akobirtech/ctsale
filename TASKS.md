@@ -3,7 +3,7 @@
 > Doimiy progress tracker. Bajarilgan task hech qachon o'chirilmaydi, faqat `[x]` qilinadi.
 > Oxirgi yangilanish: 2026-09-20
 
-**Progress:** Phase 22 / 30 (auth sahifalari tayyor; keyingisi sotuvchi kabineti)
+**Progress:** Phase 23 / 30 (sotuvchi kabineti tayyor; keyingisi admin panel)
 
 ---
 
@@ -398,14 +398,14 @@ cloaking deb baholashi mumkin.
 
 ## Phase 23 — Seller cabinet
 
-- [ ] E'lon yaratish wizard (4 qadam)
-- [ ] Dinamik spec forma
-- [ ] Media drag & drop
-- [ ] Mening e'lonlarim (status bo'yicha)
-- [ ] E'lon tahrirlash
+- [x] E'lon yaratish wizard (4 qadam)
+- [x] Dinamik spec forma
+- [x] Media drag & drop
+- [x] Mening e'lonlarim (status bo'yicha)
+- [x] E'lon tahrirlash
 - [ ] Statistika
 - [ ] Do'kon profili
-- [ ] Rad etilgan e'lon sababi ko'rinishi
+- [x] Rad etilgan e'lon sababi ko'rinishi
 
 ---
 
@@ -423,7 +423,7 @@ cloaking deb baholashi mumkin.
 - [ ] Telegram sozlamalari + postlar
 - [ ] Shikoyatlar
 - [ ] Audit log
-- [ ] Confirmation modal + toast
+- [x] Confirmation modal + toast
 
 ---
 
