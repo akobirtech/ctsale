@@ -20,7 +20,7 @@
 - [x] ROADMAP.md yaratildi (project analysis + 31 phase)
 - [x] TASKS.md yaratildi
 - [x] ARCHITECTURE.md yaratildi
-- [ ] Telegram kanal ID olinadi (foydalanuvchidan kutilmoqda — bloklamaydi)
+- [x] Telegram kanal ID olindi va ulandi (@notbuk_sot / -1004327935486)
 
 ---
 
@@ -250,6 +250,8 @@ cloaking deb baholashi mumkin.
 - [x] Retry + xato saqlash
 - [x] SOLD -> post tahrirlash
 - [x] Mock rejim (token yo'q bo'lsa)
+- [x] HAQIQIY kanalga post yuborildi va tekshirildi (t.me/notbuk_sot/4)
+- [x] Ochiq bo'lmagan URL (localhost) uchun chidamli fallback
 - [ ] Bot handlerlari (/start, qidiruv, mening e'lonlarim)
 - [ ] Admin panelda qayta jo'natish
 - [ ] TELEGRAM.md hujjati

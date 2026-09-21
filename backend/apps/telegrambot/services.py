@@ -2,6 +2,7 @@
 
 import html
 import logging
+import re
 
 from django.conf import settings
 from django.utils import timezone
@@ -29,6 +30,34 @@ def resolve_channel_id(config=None):
     """Kanal ID: avval admin panelidagi qiymat, keyin `.env`."""
     config = config or TelegramSettings.load()
     return (config.channel_id or settings.TELEGRAM_CHANNEL_ID or "").strip()
+
+
+def is_public_url(url):
+    """Telegram ochа oladigan URL mi?
+
+    Telegram localhost/127.0.0.1 va boshqa ichki manzillarni ham
+    inline tugmada, ham havolada rad etadi ("Wrong HTTP URL").
+    Production'da bu shart har doim bajariladi; lokal ishlab chiqishda
+    esa post havolasiz yuboriladi — oqim baribir to'liq tekshiriladi.
+    """
+    if not url or not url.startswith(("http://", "https://")):
+        return False
+    lowered = url.lower()
+    local_markers = ("localhost", "127.0.0.1", "0.0.0.0", "::1", ".local", "192.168.", "10.0.")
+    return not any(marker in lowered for marker in local_markers)
+
+
+ANCHOR_RE = re.compile(r'<a\s+href="[^"]*">(.*?)</a>', re.DOTALL)
+
+
+def _strip_links(text):
+    """`<a href="...">matn</a>` -> `matn`
+
+    Havola ochiq domenga ishora qilmasa Telegram butun xabarni rad
+    etadi, shuning uchun lokal muhitda anchor teglari olib tashlanadi —
+    lekin ichidagi matn saqlanib qoladi.
+    """
+    return ANCHOR_RE.sub(lambda match: match.group(1), text)
 
 
 def _absolute_media_url(file_field):
@@ -121,11 +150,15 @@ def _render_specs(product, limit):
 
 
 def _reply_markup(product, config):
-    return {
-        "inline_keyboard": [
-            [{"text": config.button_text, "url": product.absolute_url}]
-        ]
-    }
+    """Inline tugma — faqat havola ochiq bo'lganda."""
+    url = product.absolute_url
+    if not is_public_url(url):
+        logger.warning(
+            "FRONTEND_URL ochiq emas (%s) — Telegram posti inline tugmasiz yuboriladi.",
+            url,
+        )
+        return None
+    return {"inline_keyboard": [[{"text": config.button_text, "url": url}]]}
 
 
 def publish_product(product, client=None, config=None):
@@ -155,6 +188,8 @@ def publish_product(product, client=None, config=None):
 
     caption = render_post(product, config)
     markup = _reply_markup(product, config)
+    if markup is None:
+        caption = _strip_links(caption)
 
     images, video = [], None
     if config.publish_media:
