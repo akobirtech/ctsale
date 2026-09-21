@@ -341,12 +341,23 @@ class Product(BaseModel, AuditableModel):
 
     @property
     def should_be_indexed(self):
-        """Faqat ommaga ochiq, o'chirilmagan va indekslashga ruxsat berilgan."""
-        return (
-            self.is_indexable
-            and not self.is_deleted
-            and self.status in (ProductStatus.APPROVED, ProductStatus.RESERVED)
-        )
+        """Sahifa qidiruv tizimlari indeksiga tushsinmi?
+
+        Sotilgan e'lon ham indekslanadi: Google ecommerce bo'yicha
+        tavsiyasi "mavjud bo'lmagan mahsulotni noindex qilmang" deydi,
+        chunki sahifa narx tarixi uchun foydali bo'lib qoladi va
+        JSON-LD da holat `SoldOut` deb aniq ko'rsatiladi. Bu xatti-harakat
+        admin paneldagi `index_sold_products` bilan o'chiriladi.
+        """
+        if not self.is_indexable or self.is_deleted:
+            return False
+        if self.status in (ProductStatus.APPROVED, ProductStatus.RESERVED):
+            return True
+        if self.status == ProductStatus.SOLD:
+            from apps.seo.models import SeoSettings
+
+            return SeoSettings.load().index_sold_products
+        return False
 
     @property
     def schema_availability(self):

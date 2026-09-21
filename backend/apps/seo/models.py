@@ -68,6 +68,15 @@ class SeoSettings(TimeStampedModel):
     sitemap_products_limit = models.PositiveIntegerField(
         "sitemapdagi mahsulotlar chegarasi", default=40000
     )
+    index_sold_products = models.BooleanField(
+        "sotilgan e'lonlar indekslansin",
+        default=True,
+        help_text=(
+            "Google tavsiyasi: sotilgan mahsulot sahifasini noindex qilmang — "
+            "u narx tadqiqoti uchun qimmatli va JSON-LD da SoldOut ko'rsatiladi. "
+            "Agar sotilgan e'lonlar juda ko'payib ketsa o'chirib qo'yish mumkin."
+        ),
+    )
 
     organization_logo = models.ImageField(
         "tashkilot logotipi", upload_to="seo/", null=True, blank=True

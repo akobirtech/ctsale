@@ -3,7 +3,7 @@
 > Doimiy progress tracker. Bajarilgan task hech qachon o'chirilmaydi, faqat `[x]` qilinadi.
 > Oxirgi yangilanish: 2026-09-20
 
-**Progress:** Phase 13 / 30 (backend yadrosi tayyor: mahsulot, media, moderatsiya, Telegram)
+**Progress:** Phase 16 / 30 (backend to'liq + demo data + SEO fayllari; keyingisi frontend)
 
 ---
 
@@ -40,14 +40,14 @@ ta'sir qilganlari migration qilishdan OLDIN kiritildi.
 - [x] `schema_availability` / `schema_condition` (JSON-LD uchun)
 - [x] Google/Yandex/Bing verification kodlari `.env` ga ko'chirildi
 - [ ] Vite SSR (React renderToString + Express) — Phase 17 da
-- [ ] Dinamik robots.txt (baza asosida)
-- [ ] Dinamik multilingual sitemap (/sitemap.xml, /sitemap-{uz,ru,en}.xml)
+- [x] Dinamik robots.txt (baza asosida)
+- [x] Dinamik multilingual sitemap (/sitemap.xml, /sitemap-{uz,ru,en}.xml)
 - [ ] hreflang + x-default barcha public sahifalarda
 - [ ] JSON-LD: Product, Offer, BreadcrumbList, Organization, WebSite, SearchAction
 - [ ] 301 redirect middleware (SeoRedirect modeli asosida)
 - [ ] 410 Gone — o'chirilgan mahsulot uchun
 - [ ] Multilingual 404 sahifasi
-- [ ] Sotilgan mahsulot uchun SEO strategiyasi (200 + SoldOut)
+- [x] Sotilgan mahsulot uchun SEO strategiyasi (200 + SoldOut)
 
 **Qabul qilingan arxitektura qarori:** React + Vite saqlanadi, lekin
 sof CSR o'rniga **Vite SSR** ishlatiladi. Sabab: talab #15 "product
@@ -186,7 +186,7 @@ cloaking deb baholashi mumkin.
 - [x] Trigram fallback (opechatka)
 - [x] Autocomplete endpoint
 - [x] Qidiruv tarixi (SearchQuery log)
-- [ ] Search testlari
+- [x] Search testlari
 
 ---
 
@@ -198,7 +198,7 @@ cloaking deb baholashi mumkin.
 - [x] Facet count endpoint
 - [x] 6 xil sorting
 - [x] Pagination
-- [ ] Filter testlari
+- [x] Filter testlari
 
 ---
 
@@ -290,12 +290,13 @@ cloaking deb baholashi mumkin.
 - [x] Brendlar seed (30+)
 - [x] Atributlar seed (kategoriyalar bo'yicha)
 - [x] O'zbekiston hududlari seed (14 viloyat / 79 tuman)
-- [ ] Userlar seed (40)
-- [ ] Sotuvchilar seed (20)
-- [ ] ~120 mahsulot seed
-- [ ] Demo rasmlar (ochiq manba yoki SVG placeholder)
-- [ ] `manage.py seed` komandasi
-- [ ] Seed tekshiruvi
+- [x] Userlar seed (40)
+- [x] Sotuvchilar seed (20)
+- [x] ~120 mahsulot seed
+- [x] Demo rasmlar (ochiq manba yoki SVG placeholder)
+- [x] `manage.py seed` komandasi
+- [x] Seed tekshiruvi
+- [x] `manage.py recount` - hisoblagichlarni tiklash
 
 ---
 
@@ -432,8 +433,8 @@ cloaking deb baholashi mumkin.
 - [ ] Open Graph + Twitter card
 - [ ] Canonical
 - [ ] JSON-LD (Product, Offer, BreadcrumbList, Organization)
-- [ ] sitemap.xml
-- [ ] robots.txt
+- [x] sitemap.xml
+- [x] robots.txt
 - [ ] Clean URL `/products/{slug}`
 - [ ] Bot uchun prerender/meta injection
 
