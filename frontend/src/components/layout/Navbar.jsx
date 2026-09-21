@@ -23,6 +23,7 @@ import {
   useLocalePath,
 } from "../../i18n";
 import { useAuthStore } from "../../store/auth";
+import CategoryMenu, { CategoryAccordion } from "./CategoryMenu";
 import { useThemeStore } from "../../store/theme";
 
 export default function Navbar({ categories = [] }) {
@@ -315,11 +316,12 @@ export default function Navbar({ categories = [] }) {
         </div>
 
         {/* Desktop kategoriya qatori */}
-        {featuredCategories.length > 0 ? (
+        {categories.length > 0 ? (
           <nav
-            className="hidden items-center gap-1 overflow-x-auto pb-2 lg:flex"
+            className="hidden items-center gap-1 pb-2 lg:flex"
             aria-label={t("nav.categories")}
           >
+            <CategoryMenu categories={categories} />
             {featuredCategories.map((category) => (
               <Link
                 key={category.slug}
@@ -358,18 +360,7 @@ export default function Navbar({ categories = [] }) {
                 </Link>
               ))}
             </div>
-            {categories.map((category) => (
-              <Link
-                key={category.slug}
-                to={localePath(`/category/${category.slug}`)}
-                className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium hover:bg-[var(--bg-muted)]"
-              >
-                {category.name}
-                <span className="text-xs" style={{ color: "var(--text-subtle)" }}>
-                  {category.products_count}
-                </span>
-              </Link>
-            ))}
+            <CategoryAccordion categories={categories} onNavigate={() => setMenuOpen(false)} />
           </div>
         </div>
       ) : null}

@@ -27,6 +27,7 @@ from .serializers import (
     PasswordResetConfirmSerializer,
     PasswordResetRequestSerializer,
     RegisterSerializer,
+    ShopProfileSerializer,
     UserSerializer,
     UserUpdateSerializer,
 )
@@ -249,6 +250,46 @@ class MeView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(UserSerializer(request.user).data)
+
+
+class ShopProfileView(APIView):
+    """Do'kon profili: sotuvchi o'zi boshqaradi.
+
+    Profil ixtiyoriy — jismoniy shaxs sotuvchiga kerak emas. Shuning
+    uchun u avtomatik yaratilmaydi: birinchi PUT so'rovida paydo
+    bo'ladi.
+    """
+
+    permission_classes = [IsAuthenticated]
+    serializer_class = ShopProfileSerializer
+
+    def get(self, request):
+        shop = getattr(request.user, "shop", None)
+        if shop is None:
+            return Response({"detail": "Do'kon profili yaratilmagan."}, status=404)
+        return Response(ShopProfileSerializer(shop, context={"request": request}).data)
+
+    def put(self, request):
+        return self._save(request, partial=False)
+
+    def patch(self, request):
+        return self._save(request, partial=True)
+
+    def _save(self, request, partial):
+        shop = getattr(request.user, "shop", None)
+        serializer = ShopProfileSerializer(
+            shop, data=request.data, partial=partial and shop is not None,
+            context={"request": request},
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user=request.user)
+        return Response(serializer.data, status=200 if shop else 201)
+
+    def delete(self, request):
+        shop = getattr(request.user, "shop", None)
+        if shop is not None:
+            shop.delete()
+        return Response(status=204)
 
 
 class PasswordChangeView(APIView):

@@ -10,7 +10,8 @@ from decimal import Decimal
 
 from django.conf import settings
 from django.core.cache import cache
-from django.db.models import F, Q
+from django.db.models import Count, F, Q, Sum
+from django.db.models.functions import Coalesce
 from django.utils import timezone
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
@@ -390,6 +391,64 @@ class ProductViewSet(viewsets.ModelViewSet):
             page, many=True, context=self.get_serializer_context()
         )
         return self.get_paginated_response(serializer.data)
+
+    @action(detail=False, methods=["get"], url_path="my-stats")
+    def my_stats(self, request):
+        """Sotuvchi kabineti uchun jamlanma.
+
+        Kunlik grafik `ProductView` dan olinadi, umumiy raqamlar esa
+        e'londagi hisoblagichlardan: grafik uchun aniq sana kerak,
+        umumiy son uchun esa har safar millionlab qatorni sanash
+        keraksiz yuk bo'lardi.
+        """
+        from datetime import timedelta
+
+        from django.db.models.functions import TruncDate
+
+        from apps.interactions.models import ProductView
+
+        days = min(max(int(request.query_params.get("days") or 30), 7), 90)
+        since = timezone.now() - timedelta(days=days)
+
+        products = Product.objects.filter(seller=request.user, is_deleted=False)
+
+        totals = products.aggregate(
+            total=Count("id"),
+            views=Coalesce(Sum("views_count"), 0),
+            favorites=Coalesce(Sum("favorites_count"), 0),
+            phone_reveals=Coalesce(Sum("phone_reveals_count"), 0),
+        )
+
+        by_status = {
+            row["status"]: row["total"]
+            for row in products.values("status").annotate(total=Count("id")).order_by()
+        }
+
+        daily = (
+            ProductView.objects.filter(product__seller=request.user, created_at__gte=since)
+            .annotate(day=TruncDate("created_at"))
+            .values("day")
+            .annotate(total=Count("id"))
+            .order_by("day")
+        )
+
+        top = list(
+            products.filter(status__in=PUBLIC_STATUSES)
+            .order_by("-views_count")
+            .values("slug", "title", "views_count", "favorites_count", "phone_reveals_count")[:5]
+        )
+
+        return Response(
+            {
+                "totals": totals,
+                "by_status": by_status,
+                "views_daily": [
+                    {"date": row["day"].isoformat(), "count": row["total"]} for row in daily
+                ],
+                "top_products": top,
+                "days": days,
+            }
+        )
 
     # ------------------------------------------------------------------
     # Ommaviy

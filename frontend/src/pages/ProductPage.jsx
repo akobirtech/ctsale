@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   BadgeCheck,
   ChevronRight,
@@ -19,11 +19,13 @@ import { useQuery } from "@tanstack/react-query";
 import { products as productsApi } from "../api/endpoints";
 import ProductGallery from "../components/product/ProductGallery";
 import ProductGrid from "../components/product/ProductGrid";
+import ReportModal from "../components/product/ReportModal";
 import ErrorState from "../components/ui/ErrorState";
 import Badge, { conditionTone } from "../components/ui/Badge";
 import { useToast } from "../hooks/useToast";
 import { useI18n, useLocalePath } from "../i18n";
 import { useHead } from "../seo/Head";
+import { useAuthStore } from "../store/auth";
 import { useRouteData } from "../store/routeData";
 import { formatCount, formatDate, formatPhone, formatRelativeDate } from "../utils/format";
 
@@ -36,6 +38,20 @@ export default function ProductPage() {
 
   const [contact, setContact] = useState(null);
   const [revealing, setRevealing] = useState(false);
+  const [reportOpen, setReportOpen] = useState(false);
+
+  const user = useAuthStore((state) => state.user);
+  const navigate = useNavigate();
+
+  function openReport() {
+    // Shikoyat autentifikatsiya talab qiladi — kirishga yuboramiz,
+    // qaytib kelish uchun joriy manzilni saqlab.
+    if (!user) {
+      navigate(`${localePath("/login")}?next=${encodeURIComponent(window.location.pathname)}`);
+      return;
+    }
+    setReportOpen(true);
+  }
 
   const { data: product, isLoading, isError, error, refetch } = useQuery({
     queryKey: ["product", slug, lang],
@@ -295,7 +311,11 @@ export default function ProductPage() {
                     <Share2 size={15} aria-hidden="true" />
                     {t("product.share")}
                   </button>
-                  <button type="button" className="btn btn-secondary btn-sm flex-1">
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-sm flex-1"
+                    onClick={openReport}
+                  >
                     <Flag size={15} aria-hidden="true" />
                     {t("product.report")}
                   </button>
@@ -357,6 +377,13 @@ export default function ProductPage() {
           <ProductGrid products={similar.slice(0, 8)} />
         </section>
       ) : null}
+
+      <ReportModal
+        open={reportOpen}
+        onClose={() => setReportOpen(false)}
+        slug={product.slug}
+        productTitle={product.title}
+      />
     </div>
   );
 }

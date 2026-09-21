@@ -112,6 +112,26 @@ class ShopProfileSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["id", "slug", "created_at"]
 
+    def validate_name(self, value):
+        value = (value or "").strip()
+        if len(value) < 2:
+            raise serializers.ValidationError("Do'kon nomi kamida 2 ta belgidan iborat bo'lsin.")
+        return value
+
+    def validate_logo(self, value):
+        if not value:
+            return value
+
+        from django.core.exceptions import ValidationError as DjangoValidationError
+
+        from apps.mediafiles.validators import validate_image
+
+        try:
+            validate_image(value)
+        except DjangoValidationError as exc:
+            raise serializers.ValidationError(exc.messages[0]) from exc
+        return value
+
 
 class UserSerializer(serializers.ModelSerializer):
     """Foydalanuvchining o'zi uchun to'liq profil."""
@@ -149,6 +169,25 @@ class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["first_name", "last_name", "email", "avatar", "region", "district"]
+
+    def validate_avatar(self, value):
+        """Avatar ham mahsulot rasmi bilan bir xil tekshiruvdan o'tadi.
+
+        Alohida yengilroq qoida yozilmaydi: `.php` ni `.jpg` deb
+        nomlash bu yerda ham xuddi shunday ishlaydi.
+        """
+        if not value:
+            return value
+
+        from django.core.exceptions import ValidationError as DjangoValidationError
+
+        from apps.mediafiles.validators import validate_image
+
+        try:
+            validate_image(value)
+        except DjangoValidationError as exc:
+            raise serializers.ValidationError(exc.messages[0]) from exc
+        return value
 
     def validate_email(self, value):
         if not value:
