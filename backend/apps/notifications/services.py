@@ -62,7 +62,10 @@ def _deliver(channel, recipient, notification):
             if notification.body:
                 text += f"\n\n{notification.body}"
             if notification.link:
-                text += f"\n\n{settings.FRONTEND_URL}{notification.link}"
+                # Sayt yo'llari til prefiksli (/uz/...). Bildirishnomada
+                # prefiks saqlanmaydi, chunki u foydalanuvchining joriy
+                # tiliga bog'liq — tashqariga chiqarayotganda qo'shamiz.
+                text += f"\n\n{absolute_link(notification.link)}"
             return send_direct_message(recipient.telegram_id, text)
 
         if channel == NotificationChannel.EMAIL:

@@ -3,7 +3,7 @@
 > Doimiy progress tracker. Bajarilgan task hech qachon o'chirilmaydi, faqat `[x]` qilinadi.
 > Oxirgi yangilanish: 2026-09-20
 
-**Progress:** Phase 24 / 30 (admin panel tayyor; qolgani: testlar, hujjat, deploy)
+**Progress:** Phase 27 / 30 (319 test, 87% qamrov; qolgani: performance, deploy, final QA)
 
 ---
 
@@ -112,7 +112,7 @@ cloaking deb baholashi mumkin.
 - [x] Auth throttling (login 5/min, register 3/soat)
 - [x] Brute-force himoyasi (LoginAttempt, 10 urinish / 15 daqiqa)
 - [x] Barcha xato xabarlari o'zbekchaga o'girildi (DRF + parol validatorlari)
-- [ ] Auth testlari (pytest)
+- [x] Auth testlari (pytest)
 
 ---
 
@@ -157,7 +157,7 @@ cloaking deb baholashi mumkin.
 - [x] Product public API (list/detail)
 - [x] Submit / Sold / Reserve / Archive / Renew action'lari
 - [x] E'lon muddati (expires_at) va Celery expiry task
-- [ ] Product testlari
+- [x] Product testlari
 
 ---
 
@@ -174,7 +174,7 @@ cloaking deb baholashi mumkin.
 - [x] Video validatsiya + poster
 - [x] Media o'chirish (fayl bilan)
 - [x] Aniq xato xabarlari (o'zbekcha)
-- [ ] Media testlari
+- [x] Media testlari
 
 ---
 
@@ -211,7 +211,7 @@ cloaking deb baholashi mumkin.
 - [x] Reject action (sabab + izoh)
 - [x] Bulk approve
 - [x] Muhim maydon o'zgarganda qayta moderatsiya
-- [ ] Moderation testlari
+- [x] Moderation testlari
 
 ---
 
@@ -222,7 +222,7 @@ cloaking deb baholashi mumkin.
 - [x] Compare API
 - [x] Report modeli (6 sabab) + API
 - [x] Admin report ko'rish
-- [ ] Testlar
+- [x] Testlar
 
 ---
 
@@ -234,7 +234,7 @@ cloaking deb baholashi mumkin.
 - [x] Telegram kanali orqali yuborish
 - [x] Email backend (dev: konsol)
 - [x] User notification sozlamalari
-- [ ] Testlar
+- [x] Testlar
 
 ---
 
@@ -255,7 +255,7 @@ cloaking deb baholashi mumkin.
 - [ ] Bot handlerlari (/start, qidiruv, mening e'lonlarim)
 - [ ] Admin panelda qayta jo'natish
 - [ ] TELEGRAM.md hujjati
-- [ ] Telegram testlari (mock)
+- [x] Telegram testlari (mock)
 
 ---
 
@@ -266,7 +266,7 @@ cloaking deb baholashi mumkin.
 - [x] AuditLog modeli
 - [x] Audit signal/mixin
 - [x] Dashboard statistika endpointi
-- [ ] Testlar
+- [x] Testlar
 
 ---
 
@@ -457,16 +457,16 @@ cloaking deb baholashi mumkin.
 
 ## Phase 27 — Testing
 
-- [ ] pytest konfiguratsiyasi
-- [ ] Auth testlari
+- [x] pytest konfiguratsiyasi
+- [x] Auth testlari
 - [x] Permission testlari
-- [ ] Product CRUD testlari
-- [ ] Media testlari
-- [ ] Search/filter testlari
-- [ ] Moderation testlari
-- [ ] Telegram testlari
+- [x] Product CRUD testlari
+- [x] Media testlari
+- [x] Search/filter testlari
+- [x] Moderation testlari
+- [x] Telegram testlari
 - [ ] Frontend Vitest testlari
-- [ ] TESTING.md
+- [x] TESTING.md
 
 ---
 

@@ -1,0 +1,17 @@
+[run]
+source = apps
+omit =
+    */migrations/*
+    */tests/*
+    */management/commands/seed_*.py
+    */apps.py
+    */__init__.py
+
+[report]
+precision = 0
+skip_covered = False
+exclude_lines =
+    pragma: no cover
+    if TYPE_CHECKING:
+    raise NotImplementedError
+    def __str__

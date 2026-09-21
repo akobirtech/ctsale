@@ -90,7 +90,14 @@ def _deliver_otp(phone, code, purpose):
 
 
 def verify_otp(phone, code, purpose=OTPPurpose.REGISTER):
-    """Kodni tekshiradi. Muvaffaqiyatsizlikda aniq sabab bilan xato otadi."""
+    """Kodni tekshiradi. Muvaffaqiyatsizlikda aniq sabab bilan xato otadi.
+
+    MUHIM: bu funksiya tranzaksiya ICHIDA chaqirilmasligi kerak.
+    Noto'g'ri urinish hisoblagichi saqlanadi va keyin xato otiladi —
+    agar chaqiruvchi `atomic` blok ichida bo'lsa, xato rollback
+    qiladi va hisoblagich hech qachon oshmaydi. Bu esa kodni
+    cheksiz marta taxmin qilish imkonini berardi.
+    """
     phone = normalize_phone(phone)
     otp = (
         OTPCode.objects.filter(phone=phone, purpose=purpose, is_used=False)
@@ -168,10 +175,15 @@ def _assign_default_role(user):
         UserRole.objects.get_or_create(user=user, role=role)
 
 
-@transaction.atomic
 def confirm_registration(phone, code):
+    # Tekshiruv tranzaksiyadan tashqarida: urinishlar hisoblagichi
+    # xato otilganda ham saqlanib qolishi kerak.
     verify_otp(phone, code, OTPPurpose.REGISTER)
+    return _activate_registered_user(phone)
 
+
+@transaction.atomic
+def _activate_registered_user(phone):
     user = User.all_objects.filter(phone=normalize_phone(phone)).first()
     if user is None:
         raise BusinessError("Foydalanuvchi topilmadi.", code="user_not_found", status_code=404)
@@ -267,10 +279,13 @@ def request_password_reset(phone, ip_address=None):
     return issue_otp(phone, OTPPurpose.RESET_PASSWORD, ip_address)
 
 
-@transaction.atomic
 def confirm_password_reset(phone, code, new_password):
     verify_otp(phone, code, OTPPurpose.RESET_PASSWORD)
+    return _apply_new_password(phone, new_password)
 
+
+@transaction.atomic
+def _apply_new_password(phone, new_password):
     user = User.objects.filter(phone=normalize_phone(phone)).first()
     if user is None:
         raise BusinessError("Foydalanuvchi topilmadi.", code="user_not_found", status_code=404)

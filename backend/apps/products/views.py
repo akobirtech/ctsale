@@ -60,6 +60,10 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     public_actions = (
         "list", "retrieve", "search", "autocomplete", "similar", "featured",
+        # Telefon ochish ataylab mehmonlarga ham ochiq: e'lonning
+        # butun maqsadi shu. Suiiste'moldan `phone_reveal` throttle
+        # va 24 soatlik takrorlanmaslik himoya qiladi.
+        "reveal_phone",
     )
 
     # ------------------------------------------------------------------
@@ -117,6 +121,14 @@ class ProductViewSet(viewsets.ModelViewSet):
         base = Product.objects.with_relations()
 
         if self.action in self.public_actions:
+            # Bitta e'lonni ochishda egasi o'z qoralamasini ham ko'ra
+            # olishi kerak — aks holda tahrirlashdan oldin tekshirib
+            # bo'lmaydi. Ro'yxatlarda esa faqat ommaviy holatlar.
+            if self.action in ("retrieve", "reveal_phone") and user.is_authenticated:
+                if user_has_permission(user, P.PRODUCT_VIEW_ANY):
+                    return base
+                return base.filter(Q(status__in=PUBLIC_STATUSES) | Q(seller=user))
+
             queryset = base.filter(status__in=PUBLIC_STATUSES)
             # Sotilganlar standart ro'yxatda ko'rinmaydi, lekin
             # sahifasi ochiq qoladi (SEO qiymati saqlanadi).

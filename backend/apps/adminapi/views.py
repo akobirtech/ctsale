@@ -350,8 +350,11 @@ class TelegramAdminViewSet(viewsets.GenericViewSet):
         page = self.paginate_queryset(queryset)
         return self.get_paginated_response(TelegramPostSerializer(page, many=True).data)
 
-    @action(detail=False, methods=["get", "patch"])
-    def settings(self, request):
+    # Metod nomi `settings` bo'lsa DRF'ning `APIView.settings`
+    # atributini yashiradi va xato ishlovchisi buziladi. URL esa
+    # `url_path` orqali o'zgarishsiz qoladi.
+    @action(detail=False, methods=["get", "patch"], url_path="settings")
+    def channel_settings(self, request):
         from apps.telegrambot.models import TelegramSettings
         from apps.telegrambot.services import resolve_channel_id
 

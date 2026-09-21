@@ -10,7 +10,7 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
-from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.parsers import FormParser, JSONParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.throttling import ScopedRateThrottle
@@ -39,7 +39,9 @@ logger = logging.getLogger(__name__)
 
 class ProductMediaMixin:
     permission_classes = [IsAuthenticated, IsNotBanned]
-    parser_classes = [MultiPartParser, FormParser]
+    # Fayl yuklash uchun multipart, tartiblash kabi amallar uchun JSON.
+    # JSONParser'siz `reorder` 415 qaytarardi.
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
     throttle_scope = "media_upload"
 
     def get_throttles(self):
