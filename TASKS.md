@@ -16,7 +16,7 @@
 - [x] PostgreSQL ulanishi tekshirildi (user=postgres)
 - [x] `ctsale` bazasi yaratildi
 - [x] `pg_trgm` va `unaccent` kengaytmalari o'rnatildi
-- [x] Telegram bot tokeni tekshirildi (@notbuk_sot_bot, )
+- [x] Telegram bot tokeni tekshirildi (@notbuk_sot_bot)
 - [x] ROADMAP.md yaratildi (project analysis + 31 phase)
 - [x] TASKS.md yaratildi
 - [x] ARCHITECTURE.md yaratildi

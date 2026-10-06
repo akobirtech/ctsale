@@ -21,6 +21,8 @@ Nom va username so'raladi. Natijada token beriladi:
 1234567890:AAAbbbCCCdddEEEfffGGGhhhIIIjjjKKKlll
 ```
 
+(yuqoridagi — namuna, haqiqiy token emas)
+
 > **Tokenni hech kimga yubormang va kodga yozmang.** U faqat `.env`
 > da turadi. Agar token biror joyga tushib qolgan bo'lsa,
 > @BotFather → `/revoke` orqali darhol yangilang.
@@ -51,7 +53,7 @@ Nom va username so'raladi. Natijada token beriladi:
 TELEGRAM_BOT_TOKEN=1234567890:AAAbbbCCCddd...
 TELEGRAM_CHANNEL_ID=@kanal_nomi
 # yoki yopiq kanal uchun:
-# TELEGRAM_CHANNEL_ID=-1004327935486
+# TELEGRAM_CHANNEL_ID=-1001234567890
 ```
 
 ### 5. Tekshirish
